@@ -22,8 +22,6 @@ class World {
         this.draw();
     }
 
-
-
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -31,8 +29,6 @@ class World {
         this.addObjectsToMap(this.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
-
-
 
         // draw wird immer wieder aufgerufen.
         let self = this;
