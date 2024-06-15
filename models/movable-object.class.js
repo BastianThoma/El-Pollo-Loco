@@ -8,11 +8,39 @@ class MovableObject {
     currentImage = 0;
     speed = 0.15;
     otherDirection = false;
+    speedY = 0;
+    acceleration = 2.5;
 
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0)
+                this.y -= this.speedY;
+            this.speedY -= this.acceleration;
+        }, 1000 / 25);
+    }
+
+    isAboveGround() {
+        return this.y < 180;
+    }
+    isOnGround() {
+        return this.y > 180;
+    }
 
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    drawFrame(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '3';
+        ctx.strokeStyle = 'green';
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
     }
 
     loadImages(arr) {
@@ -31,13 +59,17 @@ class MovableObject {
     }
 
     moveRight() {
-        console.log('Moving Right')
+        this.x += this.speed;
+        this.otherDirection = false;
     }
 
     moveLeft() {
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
+        this.x -= this.speed;
+        this.otherDirection = true;
+    }
+
+    jump() {
+        this.speedY = 30;
     }
 
 }
