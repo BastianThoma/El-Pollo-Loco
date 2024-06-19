@@ -15,21 +15,15 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 180;
+        if (this instanceof ThrowableObject) {
+            return true;
+        } else {
+            return this.y < 180;
+        }
     }
 
     isOnGround() {
         return this.y > 180;
-    }
-
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) {
-            ctx.beginPath();
-            ctx.lineWidth = '3';
-            ctx.strokeStyle = 'green';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
     }
 
     isColliding(mo) {

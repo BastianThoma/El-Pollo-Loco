@@ -1,10 +1,36 @@
+@font-face {
+    font-family: 'Mucho-Power';
+    src: url('fonts/Mucho_Power.otf') format('opentype');
+}
+
 body {
+    font-stretch: normal;
+    font-family: 'Mucho-Power';
+    font-size: 24px;
+    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100vh;
+    background-image: url('img/10_page_background/desert.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
+h1 {
+    letter-spacing: -5px;
+    word-spacing: -20px;
+}
+
+#content {
+    margin-top: 120px;
+    text-align: center;
+}
 
 canvas {
     background-color: black;
+    -webkit-box-shadow: 0 0 20px 10px #000000;
+    -moz-box-shadow: 0 0 20px 10px #000000;
+    box-shadow: 0 0 20px 10px #000000;
 }
