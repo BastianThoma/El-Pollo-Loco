@@ -31,10 +31,17 @@ const level1 = new Level(
     ],
 
     [
-        new Coin(400, 200),
-        new Coin(350, 150),
-        new Coin(300, 120),
-        new Coin(450, 190),
+        new Coin(250, 200),
+        new Coin(450, 150),
+        new Coin(650, 190),
+        new Coin(800, 200),
+        new Coin(1000, 150),
+        new Coin(1200, 120),
+        new Coin(1250, 190),
+        new Coin(1380, 200),
+        new Coin(1490, 150),
+        new Coin(1600, 120),
+        new Coin(1650, 190),
     ],
 
     [
@@ -43,7 +50,7 @@ const level1 = new Level(
         new Bottle('img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 1080, 340),
         new Bottle('img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 1180, 330),
         new Bottle('img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 1380, 330),
-        new Bottle('img/6_salsa_bottle/2_salsa_bottle_on_ground.png', 1520, 330),
+        new Bottle('img/6_salsa_bottle/1_salsa_bottle_on_ground.png', 1520, 330),
 
     ]
 
