@@ -54,7 +54,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/idle/I-8.png',
         'img/2_character_pepe/1_idle/idle/I-9.png',
         'img/2_character_pepe/1_idle/idle/I-10.png',
-        
+
     ];
     IMAGES_LONG_IDLE = [
         'img/2_character_pepe/1_idle/long_idle/I-11.png',
@@ -91,26 +91,22 @@ class Character extends MovableObject {
 
         setInterval(() => {
             this.walking_sound.pause();
-
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.walking_sound.volume = 0.1;
                 this.walking_sound.play();
             }
-
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.walking_sound.volume = 0.1;
                 this.walking_sound.play();
             }
-
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
                 this.jumping_sound.volume = 0.1;
                 this.jumping_sound.play();
                 this.playLandingSound();
             }
-
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
@@ -121,13 +117,16 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
+            } else if (this.world.keyboard.idle) {
+                this.playAnimation(this.IMAGES_IDLE);
+            } else if (this.world.keyboard.longIdle) {
+                this.playAnimation(this.IMAGES_LONG_IDLE);
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    // Walk animation
                     this.playAnimation(this.IMAGES_WALKING);
                 }
             }
-        }, 50);
+        }, 100);
     }
 
     jump() {
@@ -138,10 +137,7 @@ class Character extends MovableObject {
         setTimeout(() => {
             if (this.isOnGround())
                 this.landing_sound.volume = 0.2;
-                this.landing_sound.play();
-        }
-            , 1000);
+            this.landing_sound.play();
+        }, 1000);
     }
-
-
 }

@@ -38,10 +38,11 @@ class World {
         }, 300);
         setInterval(() => {
             this.checkThrowObjects();
-        }, 100);
-        setInterval(() => {
             this.checkCollectables();
         }, 100);
+        // setInterval(() => {
+
+        // }, 100);
     }
 
     checkCollectables() {

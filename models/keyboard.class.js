@@ -5,4 +5,6 @@ class Keyboard {
     DOWN = false;
     SPACE = false;
     D = false;
+    idle = false;
+    longIdle = false;
 }

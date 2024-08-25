@@ -20,7 +20,6 @@ class CoinBar extends StatusBar {
 
     updateCoinBar(collectedCoins, totalCoins) {
         let percentage = Math.round((collectedCoins / totalCoins) * 100);
-        console.log(`Collected Coins: ${collectedCoins}, Total Coins: ${totalCoins}, Percentage: ${percentage}`);
         this.setPercentage(percentage);
     }
 

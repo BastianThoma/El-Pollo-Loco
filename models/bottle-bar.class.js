@@ -20,7 +20,6 @@ class BottleBar extends StatusBar {
 
     updateBottleBar(throwableObjects, totalBottles) {
         let percentage = Math.round((throwableObjects / totalBottles) * 100);
-        console.log(`Collected Bottles: ${throwableObjects}, Total Bottles: ${totalBottles}, Percentage: ${percentage}`);
         this.setPercentage(percentage);
     }
 }

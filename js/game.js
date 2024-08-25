@@ -6,6 +6,31 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    idle();
+}
+function idle() {
+    function shortIdle() {
+        keyboard.idle = true;
+    }
+    function longIdle() {
+        keyboard.idle = false;
+        keyboard.longIdle = true;
+    }
+    var shortIdleTimer;
+    var longIdleTimer;
+    function resetTimer() {
+        keyboard.idle = false;
+        keyboard.longIdle = false;
+        clearTimeout(shortIdleTimer);
+        clearTimeout(longIdleTimer);
+        shortIdleTimer = setTimeout(shortIdle, 3000);
+        longIdleTimer = setTimeout(longIdle, 7000);
+    }
+    window.addEventListener('mousemove', resetTimer, true);
+    window.addEventListener('mousedown', resetTimer, true);
+    window.addEventListener('click', resetTimer, true);
+    window.addEventListener('keydown', resetTimer, true);
+    window.addEventListener('touchstart', resetTimer, true);
 }
 
 window.addEventListener("keydown", (e)=>{
