@@ -17,4 +17,11 @@ class CoinBar extends StatusBar {
         this.y = 35;
         this.setPercentage(0);
     }
+
+    updateCoinBar(collectedCoins, totalCoins) {
+        let percentage = Math.round((collectedCoins / totalCoins) * 100);
+        console.log(`Collected Coins: ${collectedCoins}, Total Coins: ${totalCoins}, Percentage: ${percentage}`);
+        this.setPercentage(percentage);
+    }
+
 }

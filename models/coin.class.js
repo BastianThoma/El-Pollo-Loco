@@ -1,11 +1,12 @@
 class Coin extends MovableObject {
-
-
+    percentage = 10;
+    width = 100;
+    height = 100;
     offset = {
-        top: 60,
-        left: 45,
-        right: 90,
-        bottom: 120
+        top: 40,
+        left: 40,
+        right: 80,
+        bottom: 80
     };
 
     IMAGES_COIN = [

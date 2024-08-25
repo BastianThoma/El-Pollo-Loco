@@ -1,14 +1,14 @@
 class Character extends MovableObject {
     y = 80;
-    x = 100
+    x = 100;
     height = 250;
     width = 150;
     speed = 6;
     offset = {
-        top: 90,
-        left: 25,
+        top: 100,
+        left: 20,
         right: 40,
-        bottom: 100
+        bottom: 110
     };
     IMAGES_WALKING = [
         '../img/2_character_pepe/2_walk/W-21.png',
@@ -18,7 +18,6 @@ class Character extends MovableObject {
         '../img/2_character_pepe/2_walk/W-25.png',
         '../img/2_character_pepe/2_walk/W-26.png'
     ];
-
     IMAGES_JUMPING = [
         'img/2_character_pepe/3_jump/J-31.png',
         'img/2_character_pepe/3_jump/J-32.png',
@@ -44,7 +43,31 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png',
     ];
-
+    IMAGES_IDLE = [
+        'img/2_character_pepe/1_idle/idle/I-1.png',
+        'img/2_character_pepe/1_idle/idle/I-2.png',
+        'img/2_character_pepe/1_idle/idle/I-3.png',
+        'img/2_character_pepe/1_idle/idle/I-4.png',
+        'img/2_character_pepe/1_idle/idle/I-5.png',
+        'img/2_character_pepe/1_idle/idle/I-6.png',
+        'img/2_character_pepe/1_idle/idle/I-7.png',
+        'img/2_character_pepe/1_idle/idle/I-8.png',
+        'img/2_character_pepe/1_idle/idle/I-9.png',
+        'img/2_character_pepe/1_idle/idle/I-10.png',
+        
+    ];
+    IMAGES_LONG_IDLE = [
+        'img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'img/2_character_pepe/1_idle/long_idle/I-20.png',
+    ];
 
     currentImage = 0;
     world;
@@ -52,14 +75,14 @@ class Character extends MovableObject {
     jumping_sound = new Audio('audio/jump voice.mp3');
     landing_sound = new Audio('audio/landing on gravel(Jump).mp3');
 
-
-
     constructor() {
         super().loadImage('../img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.applyGravity();
         this.animate();
     }
@@ -71,16 +94,19 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
+                this.walking_sound.volume = 0.1;
                 this.walking_sound.play();
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
+                this.walking_sound.volume = 0.1;
                 this.walking_sound.play();
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
+                this.jumping_sound.volume = 0.1;
                 this.jumping_sound.play();
                 this.playLandingSound();
             }
@@ -111,6 +137,7 @@ class Character extends MovableObject {
     playLandingSound() {
         setTimeout(() => {
             if (this.isOnGround())
+                this.landing_sound.volume = 0.2;
                 this.landing_sound.play();
         }
             , 1000);
