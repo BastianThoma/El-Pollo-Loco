@@ -74,6 +74,8 @@ class Character extends MovableObject {
     walking_sound = new Audio('audio/walking on gravel.mp3');
     jumping_sound = new Audio('audio/jump voice.mp3');
     landing_sound = new Audio('audio/landing on gravel(Jump).mp3');
+    hurting_sound = new Audio('audio/oww sound.mp3');
+    dying_sound = new Audio('audio/huge ow sound.mp3');
 
     constructor() {
         super().loadImage('../img/2_character_pepe/1_idle/idle/I-1.png');
@@ -113,8 +115,12 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.dying_sound.volume = 0.1;
+                this.dying_sound.play();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                this.hurting_sound.volume = 0.1;
+                this.hurting_sound.play();
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.world.keyboard.idle) {
