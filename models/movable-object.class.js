@@ -8,9 +8,10 @@ class MovableObject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0)
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
-            this.speedY -= this.acceleration;
+                this.speedY -= this.acceleration;
+            }
         }, 1000 / 25);
     }
 
@@ -28,9 +29,9 @@ class MovableObject extends DrawableObject {
 
     isColliding(mo) {
         return this.x + this.offset.left + this.width - this.offset.right > mo.x + mo.offset.left &&
-               this.y + this.offset.top + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-               this.x + this.offset.left < mo.x + mo.offset.left + mo.width - mo.offset.right &&
-               this.y + this.offset.top < mo.y + mo.offset.top + mo.height - mo.offset.bottom;
+            this.y + this.offset.top + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+            this.x + this.offset.left < mo.x + mo.offset.left + mo.width - mo.offset.right &&
+            this.y + this.offset.top < mo.y + mo.offset.top + mo.height - mo.offset.bottom;
     }
 
     hit(dmg) {

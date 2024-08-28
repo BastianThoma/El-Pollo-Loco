@@ -77,11 +77,11 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D && this.collectedBottles > 0) {   
-                let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-                this.throwableObjects.push(bottle);
-                this.collectedBottles--;
-                this.bottleBar.updateBottleBar(this.collectedBottles, this.totalBottles);
+        if (this.keyboard.D && this.collectedBottles > 0) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(bottle);
+            this.collectedBottles--;
+            this.bottleBar.updateBottleBar(this.collectedBottles, this.totalBottles);
         }
     }
 
@@ -92,6 +92,7 @@ class World {
                 this.healthBar.setPercentage(this.character.energy);
             }
         });
+
         this.level.endboss.forEach((boss) => {
             if (this.character.isColliding(boss)) {
                 this.character.hit(20);
