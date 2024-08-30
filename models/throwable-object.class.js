@@ -81,6 +81,7 @@ class ThrowableObject extends MovableObject {
             if (this.isColliding(enemy)) {
                 this.handleCollision();
                 enemy.hit(35);
+                console.log(`Huhn getroffen! Energie: ${enemy.energy}`); // Logge die Energie des Huhns
             }
         });
     }

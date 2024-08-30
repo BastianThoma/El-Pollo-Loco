@@ -21,7 +21,7 @@ class Chicken extends MovableObject {
     
 
     constructor() {
-        super().loadImage('../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
+        super().loadImage('');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 500 + Math.random() * 800;
@@ -30,16 +30,35 @@ class Chicken extends MovableObject {
         this.animate();
     }
 
-
     animate() {
         setInterval(() => {
             this.moveLeft();
             this.otherDirection = false;
+            this.update(); // Aufruf der update()-Methode
         }, 1000 / 60);
-
-        setInterval(() => {
+    
+        this.walkInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 400);
+    }
+
+    die() {
+        clearInterval(this.walkInterval);
+        this.loadImage(this.IMAGES_DEAD);
+        this.speed = 0;
+    }
+
+    update() {
+        if (this.isDead()) {
+            this.die();
+            setTimeout(() => {
+                let index = world.level.enemies.indexOf(this);
+                if (index !== -1) {
+                  // Entferne den getroffenen Chicken aus dem Array
+                  world.level.enemies.splice(index, 1);
+                }
+              }, 400);
+        }
     }
 
 
