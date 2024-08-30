@@ -113,7 +113,7 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.isDead()) {
+             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.dying_sound.volume = 0.1;
                 this.dying_sound.play();
@@ -124,7 +124,7 @@ class Character extends MovableObject {
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.world.keyboard.idle) {
-                this.playAnimation(this.IMAGES_IDLE);
+                this.playAnimationOnce(this.IMAGES_IDLE);
             } else if (this.world.keyboard.longIdle) {
                 this.playAnimation(this.IMAGES_LONG_IDLE);
             } else {

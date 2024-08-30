@@ -78,7 +78,8 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D && this.collectedBottles > 0) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            const direction = this.character.otherDirection ? 'left' : 'right';
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, direction);
             this.throwableObjects.push(bottle);
             this.collectedBottles--;
             this.bottleBar.updateBottleBar(this.collectedBottles, this.totalBottles);
@@ -114,6 +115,8 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.endboss);
+
+        this.throwableObjects = this.throwableObjects.filter(obj => !obj.isRemoved);
         this.addObjectsToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);

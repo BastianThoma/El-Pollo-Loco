@@ -3,6 +3,9 @@ let world;
 let keyboard = new Keyboard();
 
 
+let intervalIds = [];
+
+
 function init() {
     initLevel();
     canvas = document.getElementById('canvas');

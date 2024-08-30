@@ -64,6 +64,20 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+    playAnimationOnce(images) {
+        let i = this.currentImage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        // Check if the current image is the last one
+        if (this.currentImage === images.length - 1) {
+            // If it is the last image, stop the animation
+            // You can add any additional logic here, such as pausing or hiding the animation
+            this.currentImage = 0; // Reset currentImage to 0 to restart the animation
+            return;
+        }
+        this.currentImage++; // Increment only if it's not the last image
+    }
+
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
