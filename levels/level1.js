@@ -9,7 +9,7 @@ function initLevel() {
             new Chicken(),
         ],
         [
-            // new Endboss()
+            new Endboss()
         ],
         [
             new Cloud(),

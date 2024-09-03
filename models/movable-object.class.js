@@ -53,8 +53,18 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    // isJumpedOn() {
+    fallDown() {
+        setTimeout(() => {
+            setInterval(() => {
+                this.y -= this.speedY;
+                this.speedY -= this.acceletation;
+            }, 1000 / 25);
+        }, 1000);
+    }
 
+    // playAudio(audio, volume) {
+    //     this.audio[audio].volume = volume;
+    //     this.audio[audio].play();
     // }
 
     playAnimation(images) {
@@ -87,6 +97,10 @@ class MovableObject extends DrawableObject {
         this.x -= this.speed;
         this.otherDirection = true;
     }
+
+    // doNotMove() {
+    //     this.x += 0;
+    // }
 
     jump() {
         this.speedY = 30;
