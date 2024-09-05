@@ -88,6 +88,11 @@ class MovableObject extends DrawableObject {
         this.currentImage++; // Increment only if it's not the last image
     }
 
+    playAudio(audio, volume) {
+        this.audio[audio].volume = volume;
+        this.audio[audio].play();
+    }
+
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;

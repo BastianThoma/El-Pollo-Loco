@@ -35,5 +35,11 @@ class DrawableObject {
         });
     }
 
+    AudioToArray(arr) {
+        Object.values(arr).forEach(sound => {
+            soundEffects.push(sound);
+        });
+    }
+
     
 }

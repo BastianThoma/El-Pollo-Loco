@@ -1,7 +1,12 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let isMuted = false;
 
+let soundEffects = [
+  // platzhalter,
+
+];
 let intervalIds = [];
 
 function startGame() {
@@ -25,6 +30,20 @@ function startScreen() {
   }
 
 window.addEventListener("resize", startScreen);
+
+function toggleMuteAudio() {
+  if (isMuted == false) {
+      soundEffects.forEach(sound => { sound.muted = true });
+      isMuted = true;
+      document.getElementById('volume-icon').src = "img/mute.png"; // Hier von der Index.html den Mute Button verlinken! Bilder dafür raussuchen!!!
+      world.muted = true;
+  } else {
+      soundEffects.forEach(sound => { sound.muted = false });
+      isMuted = false;
+      document.getElementById('volume-icon').src = "img/volume.png"; // Hier von der Index.html den Volume Button verlinken! Bilder dafür raussuchen!!!
+      world.muted = false;
+  }
+}
 
 function idle() {
   function shortIdle() {

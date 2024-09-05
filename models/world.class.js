@@ -17,6 +17,8 @@ class World {
   collectedCoins = 0;
   coinCollect_sound = new Audio("audio/collect coin.mp3");
   totalCoins = level1.coins.length;
+  loopAudio = true;
+  muted = false;
 
   constructor(canvas) {
     this.ctx = canvas.getContext("2d");
@@ -36,7 +38,7 @@ class World {
   run() {
     setInterval(() => {
       this.killByJump();
-  }, 1000 / 60);
+    }, 1000 / 60);
     setInterval(() => {
       this.checkCollisions();
     }, 300);
@@ -128,8 +130,8 @@ class World {
   }
 
   jumpAfterKill() {
-    if (this.character.y > 70) {
-      this.character.speedY = 10;
+    if (this.character.y > 75) {
+      this.character.speedY = 25;
       // this.playAudio(this.character, 'bouncing_sound', 0.2);
     }
   }
@@ -186,6 +188,21 @@ class World {
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
+  }
+
+  playAudio(obj, audio, vol) {
+    if (this.loopAudio) {
+      obj.audio[audio].volume = vol;
+      obj.audio[audio].play();
+    } else {
+      obj.audio[audio].pause();
+    }
+  }
+
+  pauseAudio() {
+    setTimeout(() => {
+      this.loopAudio = false;
+    }, 3000);
   }
 
   flipImage(mo) {
