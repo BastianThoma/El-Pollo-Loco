@@ -69,11 +69,11 @@ class Character extends MovableObject {
   ];
 
   audio = {
-    walking_sound: new Audio("audio/walking on gravel.mp3"),
-    jumping_sound: new Audio("audio/jump voice.mp3"),
-    landing_sound: new Audio("audio/landing on gravel(Jump).mp3"),
-    hurting_sound: new Audio("audio/oww sound.mp3"),
-    dying_sound: new Audio("audio/huge ow sound.mp3"),
+    walking_sound: new Audio('audio/walking on gravel.mp3'),
+    jumping_sound: new Audio('audio/jump voice.mp3'),
+    landing_sound: new Audio('audio/landing on gravel(Jump).mp3'),
+    hurting_sound: new Audio('audio/oww sound.mp3'),
+    dying_sound: new Audio('audio/huge ow sound.mp3'),
   };
 
   currentImage = 0;
@@ -87,25 +87,26 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_LONG_IDLE);
+    this.AudioToArray(this.audio);
     this.applyGravity();
     this.animate();
   }
 
   animate() {
     setInterval(() => {
-      this.audio["walking_sound"].pause();
+      this.audio['walking_sound'].pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
-        this.playAudio("walking_sound", 1);
+        this.playAudio('walking_sound', 1);
       }
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
-        this.playAudio("walking_sound", 1);
+        this.playAudio('walking_sound', 1);
       }
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-        this.audio["walking_sound"].pause();
+        this.audio['walking_sound'].pause();
         this.jump();
-        this.playAudio("jumping_sound", 0.5);
+        this.playAudio('jumping_sound', 0.5);
         this.playLandingSound();
       }
       this.world.camera_x = -this.x + 100;
@@ -114,11 +115,11 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimationOnce(this.IMAGES_DEAD);
-        this.playAudio("dying_sound", 0.1);
+        this.playAudio('dying_sound', 0.1);
         this.fallDown();
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
-        this.playAudio("hurting_sound", 0.1);
+        this.playAudio('hurting_sound', 0.1);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.world.keyboard.idle) {
@@ -135,7 +136,7 @@ class Character extends MovableObject {
 
   playLandingSound() {
     setTimeout(() => {
-      if (this.isOnGround()) this.playAudio("landing_sound", 0.2);
+      if (this.isOnGround()) this.playAudio('landing_sound', 0.2);
     }, 1000);
   }
 }

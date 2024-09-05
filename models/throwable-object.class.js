@@ -22,12 +22,15 @@ class ThrowableObject extends MovableObject {
     "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
   ];
 
-  shattering_sound = new Audio("audio/shattering bottle.mp3");
+  audio = {
+    shattering_sound: new Audio("audio/shattering bottle.mp3"),
+  };
 
   constructor(x, y, direction) {
     super().loadImage("img/6_salsa_bottle/salsa_bottle.png");
     this.loadImages(this.IMAGES_ROTATING);
     this.loadImages(this.IMAGES_SPLASHING);
+    this.AudioToArray(this.audio);
     this.x = x;
     this.y = y;
     this.direction = direction;
@@ -91,6 +94,7 @@ class ThrowableObject extends MovableObject {
       if (this.isColliding(boss)) {
         this.handleCollision();
         boss.hit(35);
+        world.endbossBar.setPercentage(boss.energy);
         console.log(`Boss getroffen! Energie: ${boss.energy}`); // Logge die Energie vom Endboss
       }
     });
@@ -106,8 +110,7 @@ class ThrowableObject extends MovableObject {
 
   playSplashAnimation() {
     this.startSplashing();
-    this.shattering_sound.volume = 0.2;
-    this.shattering_sound.play();
+    this.playAudio("shattering_sound", 0.2);
   }
 
   remove() {

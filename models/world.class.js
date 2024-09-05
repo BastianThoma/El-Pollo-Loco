@@ -8,17 +8,21 @@ class World {
   healthBar = new HealthBar();
   coinBar = new CoinBar();
   bottleBar = new BottleBar();
+  endbossBar = new EndbossBar();
   throwableObjects = [];
-  bottleCollect_sound = new Audio("audio/collect bottle.mp3");
   collectedBottles = [];
   collectedBottles = 0;
   totalBottles = level1.bottles.length;
   collectedCoins = [];
   collectedCoins = 0;
-  coinCollect_sound = new Audio("audio/collect coin.mp3");
   totalCoins = level1.coins.length;
   loopAudio = true;
   muted = false;
+
+  audio = {
+    coinCollect_sound: new Audio('audio/collect coin.mp3'),
+    bottleCollect_sound: new Audio('audio/collect bottle.mp3'),
+  };
 
   constructor(canvas) {
     this.ctx = canvas.getContext("2d");
@@ -56,12 +60,10 @@ class World {
   checkCoinCollect() {
     this.level.coins.forEach((coin, i) => {
       if (this.character.isColliding(coin)) {
-        this.coinCollect_sound.volume = 1;
-        this.coinCollect_sound.playbackRate = 1.5;
-        this.coinCollect_sound.play();
         this.collectedCoins++;
         this.coinBar.updateCoinBar(this.collectedCoins, this.totalCoins);
         this.level.coins.splice(i, 1);
+        this.playAudio('coinCollect_sound', 1);
       }
     });
   }
@@ -69,15 +71,13 @@ class World {
   checkBottleCollect() {
     this.level.bottles.forEach((bottle, i) => {
       if (this.character.isColliding(bottle)) {
-        this.bottleCollect_sound.volume = 1;
-        this.bottleCollect_sound.playbackRate = 1.5;
-        this.bottleCollect_sound.play();
         this.collectedBottles++;
         this.bottleBar.updateBottleBar(
           this.collectedBottles,
           this.totalBottles
         );
         this.level.bottles.splice(i, 1);
+        this.playAudio('bottleCollect_sound', 1);
       }
     });
   }
@@ -159,6 +159,7 @@ class World {
     this.addToMap(this.healthBar);
     this.addToMap(this.coinBar);
     this.addToMap(this.bottleBar);
+    this.addToMap(this.endbossBar);
     this.ctx.translate(this.camera_x, 0);
 
     this.ctx.translate(-this.camera_x, 0);
@@ -190,7 +191,12 @@ class World {
     }
   }
 
-  playAudio(obj, audio, vol) {
+  playAudio(audio, volume) {
+    this.audio[audio].volume = volume;
+    this.audio[audio].play();
+  }
+
+  playObjectAudio(obj, audio, vol) {
     if (this.loopAudio) {
       obj.audio[audio].volume = vol;
       obj.audio[audio].play();
@@ -216,19 +222,4 @@ class World {
     mo.x = mo.x * -1;
     this.ctx.restore();
   }
-
-  //   playAudio(obj, audio, vol) {
-  //     if (this.loopAudio) {
-  //       obj.audio[audio].volume = vol;
-  //       obj.audio[audio].play();
-  //     } else {
-  //       obj.audio[audio].pause();
-  //     }
-  //   }
-
-  //   pauseAudio() {
-  //     setTimeout(() => {
-  //       this.loopAudio = false;
-  //     }, 3000);
-  //   }
 }
