@@ -2,46 +2,58 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let isMuted = false;
+let stopGame = false;
 
 let soundEffects = [
   // platzhalter,
-
 ];
 let intervalIds = [];
 
-function startGame() {
+function init() {
   initLevel();
-  canvas = document.getElementById("canvas");
+  canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   idle();
-  world.start();
+}
+
+function restartGame() {
+  stopGame = false;
+  world = null;
+  initLevel();
+  canvas = document.getElementById('canvas');
+  world = new World(canvas, keyboard);
+  idle();
 }
 
 function startScreen() {
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-  
-    const img = new Image();
-    img.src = "img/9_intro_outro_screens/start/startscreen_2.png";
-  
-    img.onload = function () {
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    };
-  }
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  const img = new Image();
+  img.src = "img/9_intro_outro_screens/start/startscreen_2.png";
+
+  img.onload = function () {
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  };
+}
 
 window.addEventListener("resize", startScreen);
 
 function toggleMuteAudio() {
   if (isMuted == false) {
-      soundEffects.forEach(sound => { sound.muted = true });
-      isMuted = true;
-      document.getElementById('volume-icon').src = "img/mute.png"; // Hier von der Index.html den Mute Button verlinken! Bilder dafür raussuchen!!!
-      world.muted = true;
+    soundEffects.forEach((sound) => {
+      sound.muted = true;
+    });
+    isMuted = true;
+    document.getElementById("volume-icon").src = "img/mute.png"; // Hier von der Index.html den Mute Button verlinken! Bilder dafür raussuchen!!!
+    world.muted = true;
   } else {
-      soundEffects.forEach(sound => { sound.muted = false });
-      isMuted = false;
-      document.getElementById('volume-icon').src = "img/volume.png"; // Hier von der Index.html den Volume Button verlinken! Bilder dafür raussuchen!!!
-      world.muted = false;
+    soundEffects.forEach((sound) => {
+      sound.muted = false;
+    });
+    isMuted = false;
+    document.getElementById("volume-icon").src = "img/volume.png"; // Hier von der Index.html den Volume Button verlinken! Bilder dafür raussuchen!!!
+    world.muted = false;
   }
 }
 

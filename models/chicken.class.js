@@ -28,7 +28,7 @@ class Chicken extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    let interval = setInterval(() => {
       this.moveLeft();
       this.otherDirection = false;
       this.update(); // Aufruf der update()-Methode
@@ -37,6 +37,7 @@ class Chicken extends MovableObject {
     this.walkInterval = setInterval(() => {
       this.playAnimation(this.IMAGES_WALKING);
     }, 400);
+    intervalIds.push(interval, this.walkInterval);
   }
 
   die() {

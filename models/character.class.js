@@ -93,14 +93,16 @@ class Character extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    let interval = setInterval(() => {
       this.audio['walking_sound'].pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
+        this.otherDirection = false;
         this.playAudio('walking_sound', 1);
       }
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
+        this.otherDirection = true;
         this.playAudio('walking_sound', 1);
       }
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
@@ -112,7 +114,7 @@ class Character extends MovableObject {
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
-    setInterval(() => {
+    let interval2 = setInterval(() => {
       if (this.isDead()) {
         this.playAnimationOnce(this.IMAGES_DEAD);
         this.playAudio('dying_sound', 0.1);
@@ -132,6 +134,7 @@ class Character extends MovableObject {
         }
       }
     }, 100);
+    intervalIds.push(interval, interval2);
   }
 
   playLandingSound() {

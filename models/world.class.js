@@ -18,21 +18,30 @@ class World {
   totalCoins = level1.coins.length;
   loopAudio = true;
   muted = false;
+  isAtBoss = false;
+  winEndscreen = new Endscreen("img/9_intro_outro_screens/win/won_2.png", 0, 0);
+  win = false;
+  loseEndscreen = new Endscreen(
+    "img/9_intro_outro_screens/game_over/oh no you lost!.png",
+    0,
+    0
+  );
+  lose = false;
 
   audio = {
-    coinCollect_sound: new Audio('audio/collect coin.mp3'),
-    bottleCollect_sound: new Audio('audio/collect bottle.mp3'),
+    coinCollect_sound: new Audio("audio/collect coin.mp3"),
+    bottleCollect_sound: new Audio("audio/collect bottle.mp3"),
   };
 
   constructor(canvas) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-    this.start = function () {
+    if (!stopGame) {
       this.draw();
       this.setWorld();
       this.run();
-    };
+    }
   }
 
   setWorld() {
@@ -40,16 +49,61 @@ class World {
   }
 
   run() {
-    setInterval(() => {
+    let interval = setInterval(() => {
       this.killByJump();
     }, 1000 / 60);
-    setInterval(() => {
+    let interval2 = setInterval(() => {
       this.checkCollisions();
     }, 300);
-    setInterval(() => {
+    let interval3 = setInterval(() => {
       this.checkThrowObjects();
       this.checkCollectables();
+      this.checkWinOrLose();
     }, 100);
+    intervalIds.push(interval, interval2, interval3);
+  }
+
+  addEndscreen() {
+    if (this.lose) {
+      this.loseScenario();
+    } else if (this.win) {
+      this.winScenario();
+    }
+  }
+
+  loseScenario() {
+    setTimeout(() => {
+      this.stopGame();
+    }, 2000);
+    this.addToMap(this.loseEndscreen);
+    this.playObjectAudio(this.loseEndscreen, "lose_sound", 0.3);
+    this.pauseAudio();
+  }
+
+  winScenario() {
+    setTimeout(() => {
+      this.stopGame();
+    }, 2000);
+    this.addToMap(this.winEndscreen);
+    this.playObjectAudio(this.winEndscreen, "win_sound", 0.3);
+    this.pauseAudio();
+  }
+
+  checkWinOrLose() {
+    if (this.character.energy == 0) {
+      this.lose = true;
+      console.log("Lose-Bedingung erfüllt");
+    } else if (this.level.endboss[0].energy == 0) {
+      this.win = true;
+      console.log("Win-Bedingung erfüllt");
+    }
+  }
+
+  stopGame() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    this.lose = false;
+    this.win = false;
+    stopGame = true;
   }
 
   checkCollectables() {
@@ -63,7 +117,7 @@ class World {
         this.collectedCoins++;
         this.coinBar.updateCoinBar(this.collectedCoins, this.totalCoins);
         this.level.coins.splice(i, 1);
-        this.playAudio('coinCollect_sound', 1);
+        this.playAudio("coinCollect_sound", 1);
       }
     });
   }
@@ -77,7 +131,7 @@ class World {
           this.totalBottles
         );
         this.level.bottles.splice(i, 1);
-        this.playAudio('bottleCollect_sound', 1);
+        this.playAudio("bottleCollect_sound", 1);
       }
     });
   }
@@ -110,6 +164,18 @@ class World {
         this.healthBar.setPercentage(this.character.energy);
       }
     });
+  }
+
+  returnCharacterPosition() {
+    if (this.character.x > 1400) {
+      this.isAtBoss = true;
+    }
+  }
+
+  revealBossHealth() {
+    if (this.isAtBoss == true) {
+      this.addToMap(this.statusBarEndboss);
+    }
   }
 
   killByJump() {
@@ -159,7 +225,8 @@ class World {
     this.addToMap(this.healthBar);
     this.addToMap(this.coinBar);
     this.addToMap(this.bottleBar);
-    this.addToMap(this.endbossBar);
+    this.revealBossHealth();
+    this.addEndscreen();
     this.ctx.translate(this.camera_x, 0);
 
     this.ctx.translate(-this.camera_x, 0);

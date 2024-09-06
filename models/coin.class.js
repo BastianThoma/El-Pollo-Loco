@@ -20,8 +20,9 @@ class Coin extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+    let interval = setInterval(() => {
       this.playAnimation(this.IMAGES_COIN);
     }, 400);
+    intervalIds.push(interval);
   }
 }

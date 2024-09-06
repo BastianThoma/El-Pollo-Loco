@@ -3,6 +3,9 @@ class Endboss extends MovableObject {
   height = 400;
   width = 300;
   energy = 100;
+  speed = 5;
+  hadFirstContact = false;
+
 
   offset = {
     top: 90,
@@ -60,41 +63,39 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_DEAD);
     this.x = 1830;
-    this.speed = 0.5;
     this.animate();
   }
 
   animate() {
-    setInterval(() => {
-      this.moveLeft();
-      this.otherDirection = false;
-    }, 1000 / 60);
-
-    this.walkInterval = setInterval(() => {
-      this.playAnimation(this.IMAGES_WALKING);
-    }, 400);
-    setInterval(() => {
-      if (this.isHurt()) {
+    let interval = setInterval(() => {
+      this.checkIfCharacterIsAtBoss();
+      if (this.isDead()) {
+        this.playAnimation(this.IMAGES_DEAD);
+        this.fallDown();
+      } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
-      } else if (this.isDead()) {
-        this.die();
-        
+      } else if (this.hadFirstContact) {
+        this.moveEndboss();
+      } else if (world.character.x < 1400) {
+        this.playAnimation(this.IMAGES_ALERT);
       }
-    }, 150);
+    }, 100);
+    intervalIds.push(interval);
   }
 
-  die() {
-    clearInterval(this.walkInterval);
-    this.playAnimation(this.IMAGES_DEAD);
-    this.speed = 0;
-    setTimeout(() => {
-        let index = world.level.endboss.indexOf(this);
-        if (index !== -1) {
-          // Entferne den getroffenen Chicken aus dem Array
-          world.level.endboss.splice(index, 1);
-        }
-      }, 400);
+  moveEndboss() {
+    if (this.energy > 60) {
+      this.playAnimation(this.IMAGES_WALKING);
+    } else {
+      this.playAnimation(this.IMAGES_ATTACK);
+    }
+    this.moveLeft();
   }
 
-
+  checkIfCharacterIsAtBoss() {
+    if (world.character.x > 1400) {
+      this.hadFirstContact = true;
+      this.speed += 0.4;
+    }
+  }
 }

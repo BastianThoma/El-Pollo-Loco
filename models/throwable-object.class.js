@@ -50,6 +50,7 @@ class ThrowableObject extends MovableObject {
     this.throwInterval = setInterval(() => {
       this.move();
       this.checkBottleHit();
+      intervalIds.push(this.throwInterval);
     }, 25);
   }
 
@@ -58,6 +59,7 @@ class ThrowableObject extends MovableObject {
       () => this.playAnimation(this.IMAGES_ROTATING),
       80
     );
+    intervalIds.push(this.rotationInterval);
   }
 
   startSplashing() {
@@ -72,6 +74,7 @@ class ThrowableObject extends MovableObject {
         this.remove(); // Entferne die Flasche nach dem letzten Bild
       }
     }, 100); // Zeit zwischen den Bildern
+    intervalIds.push(splashInterval);
   }
 
   move() {

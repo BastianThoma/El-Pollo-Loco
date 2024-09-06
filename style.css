@@ -32,7 +32,7 @@ h1 {
 
 #buttons {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     justify-content: center;
 }
 
@@ -45,7 +45,7 @@ canvas {
     border-radius:16px;
 }
 
-#startGameButton {
+#gameButtons {
 	box-shadow:inset 0px 0px 0px 0px #f9eca0;
 	background:linear-gradient(to bottom, #f0c911 5%, #f2ab1e 100%);
 	background-color:#f0c911;
@@ -62,11 +62,11 @@ canvas {
 	text-decoration:none;
 	text-shadow:0px 0px 0px #ded17c;
 }
-#startGameButton:hover {
+#gameButtons:hover {
 	background:linear-gradient(to bottom, #f2ab1e 5%, #f0c911 100%);
 	background-color:#f2ab1e;
 }
-#startGameButton:active {
+#gameButtons:active {
 	position:relative;
 	top:1px;
 }
