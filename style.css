@@ -30,55 +30,75 @@ h1 {
     flex-direction: column;
 }
 
-#buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+#canvasMask {
+    position: relative;
+    width: 720px;
+    height: 480px;
 }
 
 canvas {
+    position: absolute;
     display: block;
     background-color: black;
     -webkit-box-shadow: 0 0 20px 10px #000000;
     -moz-box-shadow: 0 0 20px 10px #000000;
     box-shadow: 0 0 20px 10px #000000;
-    border-radius:16px;
+    border-radius: 16px;
 }
 
-#gameButtons {
-	box-shadow:inset 0px 0px 0px 0px #f9eca0;
-	background:linear-gradient(to bottom, #f0c911 5%, #f2ab1e 100%);
-	background-color:#f0c911;
-	border-radius:16px;
-	border:2px solid #e65f44;
-	display:inline-block;
-	cursor:pointer;
-	color:#c92200;
+.gameButtons {
+    position: absolute;
+    box-shadow: inset 0px 0px 0px 0px #f9eca0;
+    background: linear-gradient(to bottom, #f0c911 5%, #f2ab1e 100%);
+    background-color: #f0c911;
+    border-radius: 16px;
+    border: 2px solid #e65f44;
+    display: inline-block;
+    cursor: pointer;
+    color: #c92200;
     font-family: 'Mucho-Power';
     letter-spacing: -1px;
     word-spacing: -5px;
-	font-size:16px;
-	padding:12px 16px;
-	text-decoration:none;
-	text-shadow:0px 0px 0px #ded17c;
+    font-size: 16px;
+    padding: 12px 16px;
+    text-decoration: none;
+    text-shadow: 0px 0px 0px #ded17c;
 }
-#gameButtons:hover {
-	background:linear-gradient(to bottom, #f2ab1e 5%, #f0c911 100%);
-	background-color:#f2ab1e;
+
+.gameButtons:hover {
+    background: linear-gradient(to bottom, #f2ab1e 5%, #f0c911 100%);
+    background-color: #f2ab1e;
 }
-#gameButtons:active {
-	position:relative;
-	top:1px;
+
+.gameButtons:active {
+    position: relative;
+    top: 1px;
+}
+
+#startGameButton {
+    top: 8%;
+    left: 18%;
+}
+
+#restartGameButton {
+    top: 8%;
+    right: 18%;
 }
 
 @media only screen and (max-width: 720px) {
     canvas {
         width: 100%;
     }
+    #canvasMask {
+        width: 100%;
+    }
 }
 
 @media only screen and (max-height: 480px) {
     canvas {
+        height: 100vh;
+    }
+    #canvasMask {
         height: 100vh;
     }
 }

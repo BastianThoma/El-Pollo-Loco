@@ -38,11 +38,10 @@
   <body onload="startScreen()">
     <div id="content">
       <h1>El Pollo Loco</h1>
-
-      <canvas id="canvas" width="720" height="480"> </canvas>
-      <div id="buttons">
-        <button id="gameButtons" onclick="init()">Start Game!</button>
-        <button id="gameButtons" onclick="restartGame()">Restart Game!</button>
+      <div id="canvasMask">
+        <canvas id="canvas" width="720" height="480"> </canvas>
+        <button id="startGameButton" class="gameButtons" onclick="init()">Start Game!</button>
+        <button id="restartGameButton" class="gameButtons" onclick="restartGame()">Restart Game!</button>
       </div>
     </div>
   </body>
