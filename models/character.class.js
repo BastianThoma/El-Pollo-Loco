@@ -98,17 +98,17 @@ class Character extends MovableObject {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         this.otherDirection = false;
-        this.playAudio('walking_sound', 1);
+        this.playAudio('walking_sound', 0.2);
       }
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
-        this.playAudio('walking_sound', 1);
+        this.playAudio('walking_sound', 0.2);
       }
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.audio['walking_sound'].pause();
         this.jump();
-        this.playAudio('jumping_sound', 0.5);
+        this.playAudio('jumping_sound', 0.1);
         this.playLandingSound();
       }
       this.world.camera_x = -this.x + 100;
@@ -117,11 +117,11 @@ class Character extends MovableObject {
     let interval2 = setInterval(() => {
       if (this.isDead()) {
         this.playAnimationOnce(this.IMAGES_DEAD);
-        this.playAudio('dying_sound', 0.1);
+        this.playAudio('dying_sound', 0.2);
         this.fallDown();
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
-        this.playAudio('hurting_sound', 0.1);
+        this.playAudio('hurting_sound', 0.2);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.world.keyboard.idle) {
@@ -139,7 +139,7 @@ class Character extends MovableObject {
 
   playLandingSound() {
     setTimeout(() => {
-      if (this.isOnGround()) this.playAudio('landing_sound', 0.2);
+      if (this.isOnGround()) this.playAudio('landing_sound', 0.1);
     }, 1000);
   }
 }

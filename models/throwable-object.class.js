@@ -68,20 +68,19 @@ class ThrowableObject extends MovableObject {
       this.playAnimation(this.IMAGES_SPLASHING);
 
       splashIndex++;
-      // Überprüfen, ob das letzte Bild erreicht wurde
       if (splashIndex >= this.IMAGES_SPLASHING.length) {
-        clearInterval(splashInterval); // Stoppe das Intervall nach dem letzten Bild
-        this.remove(); // Entferne die Flasche nach dem letzten Bild
+        clearInterval(splashInterval);
+        this.remove(); 
       }
-    }, 100); // Zeit zwischen den Bildern
+    }, 100);
     intervalIds.push(splashInterval);
   }
 
   move() {
     if (this.direction === "left") {
-      this.x -= 10; // Bewege nach links
+      this.x -= 10;
     } else {
-      this.x += 10; // Bewege nach rechts
+      this.x += 10;
     }
   }
 
@@ -90,7 +89,6 @@ class ThrowableObject extends MovableObject {
       if (this.isColliding(enemy)) {
         this.handleCollision();
         enemy.hit(35);
-        console.log(`Huhn getroffen! Energie: ${enemy.energy}`); // Logge die Energie des Huhns
       }
     });
     world.level.endboss.forEach((boss) => {
@@ -98,7 +96,6 @@ class ThrowableObject extends MovableObject {
         this.handleCollision();
         boss.hit(35);
         world.endbossBar.setPercentage(boss.energy);
-        console.log(`Boss getroffen! Energie: ${boss.energy}`); // Logge die Energie vom Endboss
       }
     });
   }
@@ -117,6 +114,6 @@ class ThrowableObject extends MovableObject {
   }
 
   remove() {
-    this.isRemoved = true; // Setze ein Flag, um die Flasche als entfernt zu kennzeichnen
+    this.isRemoved = true;
   }
 }

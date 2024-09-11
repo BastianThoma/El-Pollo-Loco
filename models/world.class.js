@@ -19,15 +19,14 @@ class World {
   loopAudio = true;
   muted = false;
   isAtBoss = false;
-  winEndscreen = new Endscreen("img/9_intro_outro_screens/win/won_2.png", 0, 0);
   win = false;
+  lose = false;
+  winEndscreen = new Endscreen("img/9_intro_outro_screens/win/won_2.png", 0, 0);
   loseEndscreen = new Endscreen(
     "img/9_intro_outro_screens/game_over/oh no you lost!.png",
     0,
     0
   );
-  lose = false;
-
   audio = {
     coinCollect_sound: new Audio("audio/collect coin.mp3"),
     bottleCollect_sound: new Audio("audio/collect bottle.mp3"),
@@ -54,6 +53,7 @@ class World {
     }, 1000 / 60);
     let interval2 = setInterval(() => {
       this.checkCollisions();
+      this.returnCharacterPosition();
     }, 300);
     let interval3 = setInterval(() => {
       this.checkThrowObjects();
@@ -74,28 +74,26 @@ class World {
   loseScenario() {
     setTimeout(() => {
       this.stopGame();
-    }, 2000);
+    }, 3000);
     this.addToMap(this.loseEndscreen);
-    this.playObjectAudio(this.loseEndscreen, "lose_sound", 0.3);
+    this.playObjectAudio(this.loseEndscreen, "lose_sound", 0.4);
     this.pauseAudio();
   }
 
   winScenario() {
     setTimeout(() => {
       this.stopGame();
-    }, 2000);
+    }, 3000);
     this.addToMap(this.winEndscreen);
-    this.playObjectAudio(this.winEndscreen, "win_sound", 0.3);
+    this.playObjectAudio(this.winEndscreen, "win_sound", 0.4);
     this.pauseAudio();
   }
 
   checkWinOrLose() {
     if (this.character.energy == 0) {
       this.lose = true;
-      console.log("Lose-Bedingung erfüllt");
     } else if (this.level.endboss[0].energy == 0) {
       this.win = true;
-      console.log("Win-Bedingung erfüllt");
     }
   }
 
@@ -117,7 +115,7 @@ class World {
         this.collectedCoins++;
         this.coinBar.updateCoinBar(this.collectedCoins, this.totalCoins);
         this.level.coins.splice(i, 1);
-        this.playAudio("coinCollect_sound", 1);
+        this.playAudio("coinCollect_sound", 0.2);
       }
     });
   }
@@ -131,7 +129,7 @@ class World {
           this.totalBottles
         );
         this.level.bottles.splice(i, 1);
-        this.playAudio("bottleCollect_sound", 1);
+        this.playAudio("bottleCollect_sound", 0.2);
       }
     });
   }
@@ -174,7 +172,7 @@ class World {
 
   revealBossHealth() {
     if (this.isAtBoss == true) {
-      this.addToMap(this.statusBarEndboss);
+      this.addToMap(this.endbossBar);
     }
   }
 
@@ -189,7 +187,7 @@ class World {
         setTimeout(() => {
           this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
         }, 300);
-        // this.playAudio(enemy, 'jumped_on_sound', 0.2);
+        this.playObjectAudio(enemy, 'jumpedOn_sound', 1);
         this.jumpAfterKill();
       }
     });
@@ -198,7 +196,7 @@ class World {
   jumpAfterKill() {
     if (this.character.y > 75) {
       this.character.speedY = 25;
-      // this.playAudio(this.character, 'bouncing_sound', 0.2);
+      this.playObjectAudio(this.character, 'jumping_sound', 0.1);
     }
   }
 

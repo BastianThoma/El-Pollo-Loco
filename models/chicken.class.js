@@ -3,24 +3,32 @@ class Chicken extends MovableObject {
   height = 80;
   width = 70;
   energy = 35;
+  currentImage = 0;
+
   offset = {
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
   };
+
   IMAGES_WALKING = [
     "../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
     "../img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
     "../img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
   ];
+
   IMAGES_DEAD = ["../img/3_enemies_chicken/chicken_normal/2_dead/dead.png"];
-  currentImage = 0;
+
+  audio = {
+    jumpedOn_sound: new Audio('audio/jump on enemy.mp3'),
+  };
 
   constructor() {
     super().loadImage("");
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
+    this.AudioToArray(this.audio);
     this.x = 500 + Math.random() * 800;
 
     this.speed = 0.15 + Math.random() * 0.5;
@@ -31,7 +39,7 @@ class Chicken extends MovableObject {
     let interval = setInterval(() => {
       this.moveLeft();
       this.otherDirection = false;
-      this.update(); // Aufruf der update()-Methode
+      this.update();
     }, 1000 / 60);
 
     this.walkInterval = setInterval(() => {
@@ -52,7 +60,6 @@ class Chicken extends MovableObject {
       setTimeout(() => {
         let index = world.level.enemies.indexOf(this);
         if (index !== -1) {
-          // Entferne den getroffenen Chicken aus dem Array
           world.level.enemies.splice(index, 1);
         }
       }, 400);
