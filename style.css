@@ -70,10 +70,6 @@ canvas {
     background-color: #f2ab1e;
 }
 
-.gameButtons:active {
-    top: 1px;
-}
-
 #startGameButton {
     top: 8%;
     left: 18%;
