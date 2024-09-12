@@ -18,9 +18,22 @@ body {
     background-size: cover;
 }
 
+.d-none {
+    display: none;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-block {
+    display: block;
+}
+
 h1 {
     letter-spacing: -5px;
     word-spacing: -20px;
+    text-shadow: 2px 2px rgb(255, 255, 255);
 }
 
 #content {
@@ -31,6 +44,9 @@ h1 {
 }
 
 #canvasMask {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     width: 720px;
     height: 480px;
@@ -44,6 +60,40 @@ canvas {
     -moz-box-shadow: 0 0 20px 10px #000000;
     box-shadow: 0 0 20px 10px #000000;
     border-radius: 16px;
+}
+
+.gameButtonContainer {  
+    position: relative;
+    /* background-color: #00000074; */
+    width: 720px;
+    height: 480px;
+}
+
+#controlInstructions {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 85%;
+    height: 85%;
+    background-color: #ffcc02;
+    border-radius: 16px;
+    border: 2px solid #000000;
+}
+
+.closeControlInstructionsButton {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    cursor: pointer;
+}
+
+.controlText {
+    font-size: 20px;
+}
+
+.buttonImg {
+    width: 72px;
+    height: 64px;
 }
 
 .gameButtons {

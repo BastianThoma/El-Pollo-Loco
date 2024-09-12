@@ -14,6 +14,7 @@ function init() {
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   idle();
+  hideGameButtonContainer();
 }
 
 function restartGame() {
@@ -123,3 +124,33 @@ window.addEventListener("keyup", (e) => {
     keyboard.D = false;
   }
 });
+
+function showControlInstructions() {
+  let controlInstructions = document.getElementById('controlInstructions');
+  if (controlInstructions.classList.contains('d-none')) {
+    controlInstructions.classList.remove('d-none');
+    controlInstructions.classList.add('d-flex');
+  }
+}
+
+function hideControlInstructions() {
+  let controlInstructions = document.getElementById('controlInstructions');
+  if (controlInstructions.classList.contains('d-flex')) {
+    controlInstructions.classList.remove('d-flex');
+    controlInstructions.classList.add('d-none');
+  }
+}
+
+function showGameButtonContainer() {
+  let gameButtonContainer = document.querySelector('.gameButtonContainer');
+  if (gameButtonContainer.classList.contains('d-none')) {
+    gameButtonContainer.classList.remove('d-none');
+  }
+}
+
+function hideGameButtonContainer() {
+  let gameButtonContainer = document.querySelector('.gameButtonContainer');
+  if (!gameButtonContainer.classList.contains('d-none')) {
+    gameButtonContainer.classList.add('d-none');
+  }
+}
