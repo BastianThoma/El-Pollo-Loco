@@ -37,16 +37,18 @@
     <h1>El Pollo Loco</h1>
     <div id="canvasMask">
       <canvas id="canvas" width="720" height="480"> </canvas>
-<div class="gameButtonContainer">
-  <button id="startGameButton" class="gameButtons" onclick="init()">
-    Start Game!
-  </button>
-  <button id="restartGameButton" class="gameButtons" onclick="showControlInstructions(), hideGameButtonContainer()">
-    Controls!
-  </button>
-</div>
+      <div class="gameButtonContainer">
+        <button id="startGameButton" class="gameButtons" onclick="init()">
+          Start Game!
+        </button>
+        <button id="restartGameButton" class="gameButtons"
+          onclick="showControlInstructions(), hideGameButtonContainer()">
+          Controls!
+        </button>
+      </div>
       <div id="controlInstructions" class="d-none">
-        <img class="closeControlInstructionsButton" onclick="hideControlInstructions(), showGameButtonContainer()" src="img/12_game_ui/close.png" alt="" width="32px" height="32px">
+        <img class="closeControlInstructionsButton" onclick="hideControlInstructions(), showGameButtonContainer()"
+          src="img/12_game_ui/close.png" alt="" width="32px" height="32px">
         <div id="controlInstructionsContent">
           <table>
             <tbody>
@@ -77,6 +79,20 @@
             </tbody>
           </table>
         </div>
+      </div>
+      <div id="mobileControlButtonContainer" class="d-none">
+        <button id="leftMobileButton" class="mobileControlButtons">
+          <img src="img/12_game_ui/left-arrow.png" alt="Left Arrow">
+        </button>
+        <button id="jumpMobileButton" class="mobileControlButtons">
+          <img src="img/12_game_ui/up-arrow.png" alt="Up Arrow">
+        </button>
+        <button id="throwMobileButton" class="mobileControlButtons">
+          <img src="img/12_game_ui/bottle.png" alt="Bottle">
+        </button>
+        <button id="rightMobileButton" class="mobileControlButtons">
+          <img src="img/12_game_ui/right-arrow.png" alt="Right Arrow">
+        </button>
       </div>
     </div>
   </div>

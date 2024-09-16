@@ -15,6 +15,7 @@ function init() {
   world = new World(canvas, keyboard);
   idle();
   hideGameButtonContainer();
+  showMobileControls();
 }
 
 function restartGame() {
@@ -152,5 +153,19 @@ function hideGameButtonContainer() {
   let gameButtonContainer = document.querySelector('.gameButtonContainer');
   if (!gameButtonContainer.classList.contains('d-none')) {
     gameButtonContainer.classList.add('d-none');
+  }
+}
+
+function showMobileControls() {
+  let mobileControlButtonContainer = document.getElementById('mobileControlButtonContainer');
+  if (!mobileControlButtonContainer.classList.contains('d-flex')) {
+    mobileControlButtonContainer.classList.add('d-flex');
+  }
+}
+
+function hideMobileControls() {
+  let mobileControlButtonContainer = document.getElementById('mobileControlButtonContainer');
+  if (mobileControlButtonContainer.classList.contains('d-flex')) {
+    mobileControlButtonContainer.classList.remove('d-flex');
   }
 }
