@@ -41,7 +41,7 @@
         <button id="startGameButton" class="gameButtons" onclick="init()">
           Start Game!
         </button>
-        <button id="restartGameButton" class="gameButtons"
+        <button id="controlsGameButton" class="gameButtons"
           onclick="showControlInstructions(), hideGameButtonContainer()">
           Controls!
         </button>
@@ -81,17 +81,26 @@
         </div>
       </div>
       <div id="mobileControlButtonContainer" class="d-none">
-        <button id="leftMobileButton" class="mobileControlButtons">
-          <img src="img/12_game_ui/left-arrow.png" alt="Left Arrow">
-        </button>
-        <button id="jumpMobileButton" class="mobileControlButtons">
-          <img src="img/12_game_ui/up-arrow.png" alt="Up Arrow">
-        </button>
-        <button id="throwMobileButton" class="mobileControlButtons">
-          <img src="img/12_game_ui/bottle.png" alt="Bottle">
-        </button>
-        <button id="rightMobileButton" class="mobileControlButtons">
-          <img src="img/12_game_ui/right-arrow.png" alt="Right Arrow">
+        <div class="leftMobileControls d-flex">
+          <button id="leftMobileButton" class="mobileControlButtons">
+            <img src="img/12_game_ui/left-arrow.png" alt="Left Arrow">
+          </button>
+          <button id="jumpMobileButton" class="mobileControlButtons">
+            <img src="img/12_game_ui/up-arrow.png" alt="Up Arrow">
+          </button>
+        </div>
+        <div class="rightMobileControls d-flex">
+          <button id="throwMobileButton" class="mobileControlButtons">
+            <img src="img/12_game_ui/bottle.png" alt="Bottle">
+          </button>
+          <button id="rightMobileButton" class="mobileControlButtons">
+            <img src="img/12_game_ui/right-arrow.png" alt="Right Arrow">
+          </button>
+        </div>
+      </div>
+      <div id="restartGameScreen" class="d-none">
+        <button id="restartGameButton" class="gameButtons" onclick="restartGame()">
+          Restart Game!
         </button>
       </div>
     </div>

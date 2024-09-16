@@ -78,6 +78,8 @@ class World {
     this.addToMap(this.loseEndscreen);
     this.playObjectAudio(this.loseEndscreen, "lose_sound", 0.4);
     this.pauseAudio();
+    hideMobileControls();
+    showRestartButton();
   }
 
   winScenario() {
@@ -87,6 +89,8 @@ class World {
     this.addToMap(this.winEndscreen);
     this.playObjectAudio(this.winEndscreen, "win_sound", 0.4);
     this.pauseAudio();
+    hideMobileControls();
+    showRestartButton();
   }
 
   checkWinOrLose() {
@@ -201,6 +205,10 @@ class World {
   }
 
   draw() {
+    if (stopGame) {
+      return;
+    }
+
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.ctx.translate(this.camera_x, 0);

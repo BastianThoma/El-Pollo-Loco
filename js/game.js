@@ -16,15 +16,19 @@ function init() {
   idle();
   hideGameButtonContainer();
   showMobileControls();
+  mobileButtonsTouchEvents();
 }
 
 function restartGame() {
+  hideRestartButton()
   stopGame = false;
   world = null;
   initLevel();
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   idle();
+  showMobileControls();
+  mobileButtonsTouchEvents();
 }
 
 function startScreen() {
@@ -126,6 +130,49 @@ window.addEventListener("keyup", (e) => {
   }
 });
 
+function mobileButtonsTouchEvents() {
+  // Event listeners for touch events on mobile buttons.
+  document.getElementById('leftMobileButton').addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      keyboard.LEFT = true;
+  });
+
+  document.getElementById('leftMobileButton').addEventListener('touchend', (e) => {
+      e.preventDefault();
+      keyboard.LEFT = false;
+  });
+
+  document.getElementById('jumpMobileButton').addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      keyboard.SPACE = true;
+  });
+
+  document.getElementById('jumpMobileButton').addEventListener('touchend', (e) => {
+      e.preventDefault();
+      keyboard.SPACE = false;
+  });
+
+  document.getElementById('rightMobileButton').addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      keyboard.RIGHT = true;
+  });
+
+  document.getElementById('rightMobileButton').addEventListener('touchend', (e) => {
+      e.preventDefault();
+      keyboard.RIGHT = false;
+  });
+
+  document.getElementById('throwMobileButton').addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      keyboard.D = true;
+  });
+
+  document.getElementById('throwMobileButton').addEventListener('touchend', (e) => {
+      e.preventDefault();
+      keyboard.D = false;
+  });
+}
+
 function showControlInstructions() {
   let controlInstructions = document.getElementById('controlInstructions');
   if (controlInstructions.classList.contains('d-none')) {
@@ -167,5 +214,19 @@ function hideMobileControls() {
   let mobileControlButtonContainer = document.getElementById('mobileControlButtonContainer');
   if (mobileControlButtonContainer.classList.contains('d-flex')) {
     mobileControlButtonContainer.classList.remove('d-flex');
+  }
+}
+
+function showRestartButton() {
+  let restartGameButton = document.getElementById('restartGameScreen');
+  if (!restartGameButton.classList.contains('d-flex')) {
+    restartGameButton.classList.add('d-flex');
+  }
+}
+
+function hideRestartButton() {
+  let restartGameButton = document.getElementById('restartGameScreen');
+  if (restartGameButton.classList.contains('d-flex')) {
+    restartGameButton.classList.remove('d-flex');
   }
 }

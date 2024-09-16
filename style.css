@@ -105,6 +105,16 @@ canvas {
     align-items: end;
 }
 
+.leftMobileControls {
+    gap: 20%;
+    margin-bottom: 2%;
+}
+
+.rightMobileControls {
+    gap: 20%;
+    margin-bottom: 2%;
+}
+
 .mobileControlButtons {
     background-color: yellow;
     border: 3px solid black;
@@ -115,7 +125,10 @@ canvas {
     align-items: center;
     width: 40px;
     height: 40px;
-    margin-bottom: 3%;
+}
+
+.mobileControlButtons:active {
+    border: 3px solid rgb(255, 255, 255);
 }
 
 .mobileControlButtons img {
@@ -152,9 +165,22 @@ canvas {
     left: 18%;
 }
 
-#restartGameButton {
+#controlsGameButton {
     top: 8%;
     right: 18%;
+}
+
+#restartGameScreen {
+    position: relative;
+    background-color: #00000074;
+    width: 720px;
+    height: 480px;
+    justify-content: center;
+    align-content: end;
+}
+
+#restartGameButton {
+    bottom: 2%;
 }
 
 @media only screen and (max-width: 720px) {
