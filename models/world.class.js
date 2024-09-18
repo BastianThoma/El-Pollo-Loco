@@ -74,23 +74,23 @@ class World {
   loseScenario() {
     setTimeout(() => {
       this.stopGame();
+      showRestartButton();
     }, 3000);
     this.addToMap(this.loseEndscreen);
     this.playObjectAudio(this.loseEndscreen, "lose_sound", 0.4);
     this.pauseAudio();
     hideMobileControls();
-    showRestartButton();
   }
 
   winScenario() {
     setTimeout(() => {
       this.stopGame();
+      showRestartButton();
     }, 3000);
     this.addToMap(this.winEndscreen);
     this.playObjectAudio(this.winEndscreen, "win_sound", 0.4);
     this.pauseAudio();
     hideMobileControls();
-    showRestartButton();
   }
 
   checkWinOrLose() {

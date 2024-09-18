@@ -37,6 +37,9 @@ h1 {
 }
 
 #canvasMask {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     width: 720px;
 }
@@ -86,6 +89,7 @@ canvas {
 }
 
 #mobileControlButtonContainer {
+    display: none;
     z-index: 5;
     width: 100%;
     height: 100%;
