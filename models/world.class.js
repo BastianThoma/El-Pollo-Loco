@@ -36,6 +36,7 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.AudioToArray(this.audio);
     if (!stopGame) {
       this.draw();
       this.setWorld();
@@ -63,6 +64,12 @@ class World {
     intervalIds.push(interval, interval2, interval3);
   }
 
+  AudioToArray(arr) {
+    Object.values(arr).forEach((sound) => {
+      soundEffects.push(sound);
+    });
+  }
+
   addEndscreen() {
     if (this.lose) {
       this.loseScenario();
@@ -74,23 +81,23 @@ class World {
   loseScenario() {
     setTimeout(() => {
       this.stopGame();
-      showRestartButton();
+      toggleElement("#restartGameScreen");
     }, 3000);
     this.addToMap(this.loseEndscreen);
     this.playObjectAudio(this.loseEndscreen, "lose_sound", 0.4);
     this.pauseAudio();
-    hideMobileControls();
+    toggleElement("#mobileControlButtonContainer");
   }
 
   winScenario() {
     setTimeout(() => {
       this.stopGame();
-      showRestartButton();
+      toggleElement("#restartGameScreen");
     }, 3000);
     this.addToMap(this.winEndscreen);
     this.playObjectAudio(this.winEndscreen, "win_sound", 0.4);
     this.pauseAudio();
-    hideMobileControls();
+    toggleElement("#mobileControlButtonContainer");
   }
 
   checkWinOrLose() {
@@ -119,7 +126,7 @@ class World {
         this.collectedCoins++;
         this.coinBar.updateCoinBar(this.collectedCoins, this.totalCoins);
         this.level.coins.splice(i, 1);
-        this.playAudio("coinCollect_sound", 0.2);
+        this.playObjectAudio(world, "coinCollect_sound", 0.2);
       }
     });
   }
@@ -133,7 +140,7 @@ class World {
           this.totalBottles
         );
         this.level.bottles.splice(i, 1);
-        this.playAudio("bottleCollect_sound", 0.2);
+        this.playObjectAudio(world, "bottleCollect_sound", 0.2);
       }
     });
   }
@@ -191,7 +198,7 @@ class World {
         setTimeout(() => {
           this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
         }, 300);
-        this.playObjectAudio(enemy, 'jumpedOn_sound', 1);
+        this.playObjectAudio(enemy, "jumpedOn_sound", 1);
         this.jumpAfterKill();
       }
     });
@@ -200,7 +207,7 @@ class World {
   jumpAfterKill() {
     if (this.character.y > 75) {
       this.character.speedY = 25;
-      this.playObjectAudio(this.character, 'jumping_sound', 0.1);
+      this.playObjectAudio(this.character, "jumping_sound", 0.1);
     }
   }
 
@@ -262,11 +269,6 @@ class World {
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
-  }
-
-  playAudio(audio, volume) {
-    this.audio[audio].volume = volume;
-    this.audio[audio].play();
   }
 
   playObjectAudio(obj, audio, vol) {

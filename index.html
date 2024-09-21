@@ -45,15 +45,19 @@
         <button
           id="controlsGameButton"
           class="gameButtons"
-          onclick="showControlInstructions(), hideGameButtonContainer()"
+          onclick="toggleElement('#controlInstructions'), toggleElement('.gameButtonContainer')"
         >
           Controls!
         </button>
       </div>
+      <div class="optionButtons d-none">
+        <img id="soundIcon" onclick="toggleMuteAudio()" src="img/12_game_ui/volume.png" alt="Sound Image" width="32px" height="32px">
+        <img id="fullscreenIcon" onclick="toggleFullScreen()" src="img/12_game_ui/full-screen.png" alt="Fullscreen Image" width="32px" height="32px">
+      </div>
       <div id="controlInstructions" class="d-none">
         <img
           class="closeControlInstructionsButton"
-          onclick="hideControlInstructions(), showGameButtonContainer()"
+          onclick="toggleElement('#controlInstructions'), toggleElement('.gameButtonContainer')"
           src="img/12_game_ui/close.png"
           alt=""
           width="32px"

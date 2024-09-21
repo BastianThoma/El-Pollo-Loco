@@ -41,6 +41,4 @@ class DrawableObject {
             soundEffects.push(sound);
         });
     }
-
-    
 }

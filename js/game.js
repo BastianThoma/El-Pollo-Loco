@@ -3,9 +3,11 @@ let world;
 let keyboard = new Keyboard();
 let isMuted = false;
 let stopGame = false;
+let fullscreenActive = false;
+let backgroundMusic = new Audio ('audio/background music.mp3');
 
 let soundEffects = [
-  // platzhalter,
+  backgroundMusic,
 ];
 let intervalIds = [];
 
@@ -14,20 +16,22 @@ function init() {
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   idle();
-  hideGameButtonContainer();
-  showMobileControls();
+  toggleElement('.gameButtonContainer');
+  toggleElement('#mobileControlButtonContainer');
   mobileButtonsTouchEvents();
+  playBackgoundMusic();
+  toggleElement('.optionButtons');
 }
 
 function restartGame() {
-  hideRestartButton()
+  toggleElement('#restartGameScreen');
   stopGame = false;
   world = null;
   initLevel();
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   idle();
-  showMobileControls();
+  toggleElement('#mobileControlButtonContainer');
   mobileButtonsTouchEvents();
 }
 
@@ -46,20 +50,54 @@ function startScreen() {
 window.addEventListener("resize", startScreen);
 
 function toggleMuteAudio() {
-  if (isMuted == false) {
+  console.log(soundEffects);
+  if (!soundEffects || soundEffects.length === 0) {
+    console.error("No sound effects found");
+    return;
+  }
+
+  if (isMuted === false) {
     soundEffects.forEach((sound) => {
-      sound.muted = true;
+      if (sound) sound.muted = true; // Stelle sicher, dass sound nicht null ist
     });
     isMuted = true;
-    document.getElementById("volume-icon").src = "img/mute.png"; // Hier von der Index.html den Mute Button verlinken! Bilder dafür raussuchen!!!
+    document.getElementById("soundIcon").src = "img/12_game_ui/mute.png";
     world.muted = true;
   } else {
     soundEffects.forEach((sound) => {
-      sound.muted = false;
+      if (sound) sound.muted = false; // Überprüfe erneut auf Null
     });
     isMuted = false;
-    document.getElementById("volume-icon").src = "img/volume.png"; // Hier von der Index.html den Volume Button verlinken! Bilder dafür raussuchen!!!
+    document.getElementById("soundIcon").src = "img/12_game_ui/volume.png";
     world.muted = false;
+  }
+}
+
+function playBackgoundMusic() {
+  backgroundMusic.play();
+  backgroundMusic.volume = 0.02;
+}
+
+function toggleFullScreen() {
+  let container = document.getElementById('canvasMask');
+  let canvas = document.getElementById('canvas');
+  let icon = document.getElementById('fullscreenIcon');
+  if (fullscreenActive == false) {
+      if (container.requestFullscreen) {
+          container.requestFullscreen();
+      } else if (container.msRequestFullscreen) {
+          container.msRequestFullscreen();
+      } else if (container.webkitRequestFullscreen) {
+          container.webkitRequestFullscreen();
+      }
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      icon.src = 'img/12_game_ui/exit-fullscreen.png';
+      fullscreenActive = true;
+  } else {
+      this.document.exitFullscreen();
+      icon.src = 'img/12_game_ui/full-screen.png';
+      fullscreenActive = false;
   }
 }
 
@@ -173,60 +211,13 @@ function mobileButtonsTouchEvents() {
   });
 }
 
-function showControlInstructions() {
-  let controlInstructions = document.getElementById('controlInstructions');
-  if (controlInstructions.classList.contains('d-none')) {
-    controlInstructions.classList.remove('d-none');
-    controlInstructions.classList.add('d-flex');
-  }
-}
-
-function hideControlInstructions() {
-  let controlInstructions = document.getElementById('controlInstructions');
-  if (controlInstructions.classList.contains('d-flex')) {
-    controlInstructions.classList.remove('d-flex');
-    controlInstructions.classList.add('d-none');
-  }
-}
-
-function showGameButtonContainer() {
-  let gameButtonContainer = document.querySelector('.gameButtonContainer');
-  if (gameButtonContainer.classList.contains('d-none')) {
-    gameButtonContainer.classList.remove('d-none');
-  }
-}
-
-function hideGameButtonContainer() {
-  let gameButtonContainer = document.querySelector('.gameButtonContainer');
-  if (!gameButtonContainer.classList.contains('d-none')) {
-    gameButtonContainer.classList.add('d-none');
-  }
-}
-
-function showMobileControls() {
-  let mobileControlButtonContainer = document.getElementById('mobileControlButtonContainer');
-  if (!mobileControlButtonContainer.classList.contains('d-flex')) {
-    mobileControlButtonContainer.classList.add('d-flex');
-  }
-}
-
-function hideMobileControls() {
-  let mobileControlButtonContainer = document.getElementById('mobileControlButtonContainer');
-  if (mobileControlButtonContainer.classList.contains('d-flex')) {
-    mobileControlButtonContainer.classList.remove('d-flex');
-  }
-}
-
-function showRestartButton() {
-  let restartGameButton = document.getElementById('restartGameScreen');
-  if (!restartGameButton.classList.contains('d-flex')) {
-    restartGameButton.classList.add('d-flex');
-  }
-}
-
-function hideRestartButton() {
-  let restartGameButton = document.getElementById('restartGameScreen');
-  if (restartGameButton.classList.contains('d-flex')) {
-    restartGameButton.classList.remove('d-flex');
+function toggleElement(elementSelector, displayClass = 'd-flex', hideClass = 'd-none') {
+  let element = document.querySelector(elementSelector);
+  if (element.classList.contains(hideClass)) {
+    element.classList.remove(hideClass);
+    element.classList.add(displayClass);
+  } else {
+    element.classList.remove(displayClass);
+    element.classList.add(hideClass);
   }
 }

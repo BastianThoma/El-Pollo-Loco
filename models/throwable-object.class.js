@@ -28,9 +28,9 @@ class ThrowableObject extends MovableObject {
 
   constructor(x, y, direction) {
     super().loadImage("img/6_salsa_bottle/salsa_bottle.png");
+    this.AudioToArray(this.audio);
     this.loadImages(this.IMAGES_ROTATING);
     this.loadImages(this.IMAGES_SPLASHING);
-    this.AudioToArray(this.audio);
     this.x = x;
     this.y = y;
     this.direction = direction;
@@ -109,8 +109,12 @@ class ThrowableObject extends MovableObject {
   }
 
   playSplashAnimation() {
-    this.startSplashing();
-    this.playAudio("shattering_sound", 0.2);
+    if (!world.muted) {  // Überprüfe den globalen Mute-Status der Welt
+      this.startSplashing();  // Spiele die Splash-Animation ab
+      this.playAudio("shattering_sound", 0.2);  // Spiele den Sound, falls nicht gemutet
+    } else {
+      console.log("World is muted. Shattering sound will not play.");
+    }
   }
 
   remove() {

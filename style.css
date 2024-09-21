@@ -61,6 +61,24 @@ canvas {
     height: 100%;
 }
 
+.optionButtons {
+    position: absolute;
+    z-index: 5;
+    background-color: #c921009f;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.optionButtons img {
+    padding: 8px 8px;
+}
+
+#soundIcon {
+    cursor: pointer;
+}
+
 #controlInstructions {
     justify-content: center;
     align-items: center;
