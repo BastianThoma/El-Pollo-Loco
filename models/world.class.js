@@ -81,23 +81,25 @@ class World {
   loseScenario() {
     setTimeout(() => {
       this.stopGame();
-      toggleElement("#restartGameScreen");
+      toggleElementAction('#restartGameScreen', 'show');
+      // handleTurnDeviceWarning();
     }, 3000);
     this.addToMap(this.loseEndscreen);
     this.playObjectAudio(this.loseEndscreen, "lose_sound", 0.4);
     this.pauseAudio();
-    toggleElement("#mobileControlButtonContainer");
+    toggleElementAction('#mobileControlButtonContainer', 'hide')
   }
 
   winScenario() {
     setTimeout(() => {
       this.stopGame();
-      toggleElement("#restartGameScreen");
+      toggleElementAction('#restartGameScreen', 'show');
+      handleTurnDeviceWarning();
     }, 3000);
     this.addToMap(this.winEndscreen);
     this.playObjectAudio(this.winEndscreen, "win_sound", 0.4);
     this.pauseAudio();
-    toggleElement("#mobileControlButtonContainer");
+    toggleElementAction('#mobileControlButtonContainer', 'hide')
   }
 
   checkWinOrLose() {

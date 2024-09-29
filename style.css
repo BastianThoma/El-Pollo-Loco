@@ -1,11 +1,14 @@
+
 @font-face {
-    font-family: 'Mucho-Power';
-    src: url('fonts/Mucho_Power.otf') format('opentype');
+    font-family: 'Xisfani';
+    src: url('fonts/Xisfani.ttf') format('TrueType');
 }
+
 
 body {
     font-stretch: normal;
-    font-family: 'Mucho-Power';
+    font-family: 'Xisfani';
+    font-weight: 600;
     font-size: 24px;
     margin: 0;
     display: flex;
@@ -30,10 +33,16 @@ body {
     display: block;
 }
 
+.br-16 {
+    border-radius: 16px;
+
+}
+
 h1 {
-    letter-spacing: -5px;
-    word-spacing: -20px;
-    text-shadow: 2px 2px rgb(255, 255, 255);
+    font-family: 'Xisfani';
+    font-weight: bolder;
+    color: #FF9800;
+    text-shadow: 2px 2px #000000;
 }
 
 #canvasMask {
@@ -46,17 +55,15 @@ h1 {
 
 canvas {
     display: block;
-    background-color: black;
-    -webkit-box-shadow: 0 0 20px 10px #000000;
-    -moz-box-shadow: 0 0 20px 10px #000000;
-    box-shadow: 0 0 20px 10px #000000;
-    border-radius: 16px;
+    background-color: #000000c2;
+    -webkit-box-shadow: 0 0 20px 10px #000000c2;
+    -moz-box-shadow: 0 0 20px 10px #000000c2;
+    box-shadow: 0 0 20px 10px #000000c2;
 }
 
-.gameButtonContainer {  
+.gameButtonContainer {
     z-index: 5;
     position: absolute;
-    background-color: #00000074;
     width: 100%;
     height: 100%;
 }
@@ -64,7 +71,6 @@ canvas {
 .optionButtons {
     position: absolute;
     z-index: 5;
-    background-color: #c921009f;
     width: 100%;
     height: 100%;
     justify-content: flex-end;
@@ -79,15 +85,23 @@ canvas {
     cursor: pointer;
 }
 
+#fullscreenIcon {
+    cursor: pointer;
+}
+
 #controlInstructions {
     justify-content: center;
     align-items: center;
     position: absolute;
     width: 85%;
     height: 85%;
-    background-color: #ffcc02;
-    border-radius: 16px;
-    border: 2px solid #000000;
+    background-color: #FF9800;
+    border: 6px solid #43A047;
+}
+
+#controlInstructionsTable {
+    border-collapse: separate;
+    border-spacing: 100px 0;
 }
 
 .closeControlInstructionsButton {
@@ -102,74 +116,85 @@ canvas {
 }
 
 .buttonImg {
-    width: 72px;
-    height: 64px;
+    width: 56px;
+    height: 48px;
+}
+
+#turnDeviceMessage {
+    z-index: 9999;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF9800;
+}
+
+#turnDeviceMessage img {
+    width: 55%;
+}
+
+#turnDeviceMessage h2 {
+    text-align: center;
 }
 
 #mobileControlButtonContainer {
-    display: none;
     z-index: 5;
     width: 100%;
     height: 100%;
     position: absolute;
-    background-color: #00ff1566;
     justify-content: space-around;
     align-items: end;
+    pointer-events: none;
 }
 
 .leftMobileControls {
     gap: 20%;
     margin-bottom: 2%;
+    pointer-events: auto;
 }
 
 .rightMobileControls {
     gap: 20%;
     margin-bottom: 2%;
+    pointer-events: auto;
 }
 
 .mobileControlButtons {
-    background-color: yellow;
+    background-color: #FF9800;
     border: 3px solid black;
     border-radius: 50%;
-    padding: 15px;
+    padding: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
 }
 
-.mobileControlButtons:active {
-    border: 3px solid rgb(255, 255, 255);
+.mobileControlButtons:hover {
+    border: 3px solid #039BE5;
 }
 
 .mobileControlButtons img {
-    width: 20px;
     height: 20px;
 }
 
 .gameButtons {
     position: absolute;
-    box-shadow: inset 0px 0px 0px 0px #f9eca0;
-    background: linear-gradient(to bottom, #f0c911 5%, #f2ab1e 100%);
-    background-color: #f0c911;
-    border-radius: 16px;
-    border: 2px solid #e65f44;
+    background: linear-gradient(to bottom, #FF9800 5%, #039BE5 100%);
+    border: 2px solid #43A047;
     display: inline-block;
     cursor: pointer;
-    color: #c92200;
-    font-family: 'Mucho-Power';
-    letter-spacing: -1px;
-    word-spacing: -5px;
-    font-size: 16px;
+    font-family: 'Xisfani';
+    font-weight: bolder;
+    font-size: 20px;
     padding: 12px 16px;
     text-decoration: none;
     text-shadow: 0px 0px 0px #ded17c;
 }
 
 .gameButtons:hover {
-    background: linear-gradient(to bottom, #f2ab1e 5%, #f0c911 100%);
-    background-color: #f2ab1e;
+    background: linear-gradient(to bottom, #039BE5 5%, #FF9800 100%);
 }
 
 #startGameButton {
@@ -190,26 +215,41 @@ canvas {
     height: 100%;
     justify-content: center;
     align-content: end;
+    pointer-events: none;
 }
 
 #restartGameButton {
     bottom: 2%;
+    pointer-events: auto;
 }
 
 @media only screen and (max-width: 720px) {
     canvas {
         width: 100%;
     }
+
     #canvasMask {
         width: 100% !important;
     }
 }
 
+@media only screen and (max-width: 600px) {
+    h1 {
+        display: none;
+    }
+}
+
 @media only screen and (max-height: 480px) {
+    h1 {
+        display: none;
+    }
+
     canvas {
         height: 100vh;
         width: 100%;
+        border-radius: 0px !important;
     }
+
     #canvasMask {
         width: 100% !important;
     }

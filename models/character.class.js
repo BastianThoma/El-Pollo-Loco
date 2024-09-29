@@ -113,12 +113,16 @@ class Character extends MovableObject {
       }
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
-
+    let dyingSoundPlayed = false;
     let interval2 = setInterval(() => {
       if (this.isDead()) {
         this.playAnimationOnce(this.IMAGES_DEAD);
-        this.playAudio('dying_sound', 0.2);
+        if (!dyingSoundPlayed) {
+          this.playAudio('dying_sound', 0.2);
+          dyingSoundPlayed = true;
+        }
         this.fallDown();
+        clearInterval(interval2);
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
         this.playAudio('hurting_sound', 0.2);

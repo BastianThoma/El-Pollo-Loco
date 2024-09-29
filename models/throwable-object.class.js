@@ -64,7 +64,7 @@ class ThrowableObject extends MovableObject {
 
   startSplashing() {
     let splashIndex = 0;
-    const splashInterval = setInterval(() => {
+    let splashInterval = setInterval(() => {
       this.playAnimation(this.IMAGES_SPLASHING);
 
       splashIndex++;
@@ -109,9 +109,9 @@ class ThrowableObject extends MovableObject {
   }
 
   playSplashAnimation() {
-    if (!world.muted) {  // Überprüfe den globalen Mute-Status der Welt
-      this.startSplashing();  // Spiele die Splash-Animation ab
-      this.playAudio("shattering_sound", 0.2);  // Spiele den Sound, falls nicht gemutet
+    if (!world.muted) {
+      this.startSplashing();
+      this.playAudio("shattering_sound", 0.2);
     } else {
       console.log("World is muted. Shattering sound will not play.");
     }

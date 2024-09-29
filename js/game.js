@@ -4,35 +4,39 @@ let keyboard = new Keyboard();
 let isMuted = false;
 let stopGame = false;
 let fullscreenActive = false;
-let backgroundMusic = new Audio ('audio/background music.mp3');
 
-let soundEffects = [
-  backgroundMusic,
-];
+let backgroundMusic = new Audio("audio/background music.mp3");
+
+let soundEffects = [backgroundMusic];
 let intervalIds = [];
 
 function init() {
   initLevel();
-  canvas = document.getElementById('canvas');
+  canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   idle();
-  toggleElement('.gameButtonContainer');
-  toggleElement('#mobileControlButtonContainer');
+  toggleElementAction(".gameButtonContainer", "hide");
+  handleMobileButtons();
+  handleTurnDeviceWarning();
   mobileButtonsTouchEvents();
   playBackgoundMusic();
-  toggleElement('.optionButtons');
+  toggleElementAction(".optionButtons", "show");
+  initializeSoundSettings();
 }
 
 function restartGame() {
-  toggleElement('#restartGameScreen');
+  toggleElementAction("#restartGameScreen", "hide");
+  soundEffects = [backgroundMusic];
   stopGame = false;
   world = null;
   initLevel();
-  canvas = document.getElementById('canvas');
+  canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   idle();
-  toggleElement('#mobileControlButtonContainer');
+  handleMobileButtons();
+  handleTurnDeviceWarning();
   mobileButtonsTouchEvents();
+  initializeSoundSettings();
 }
 
 function startScreen() {
@@ -49,28 +53,52 @@ function startScreen() {
 
 window.addEventListener("resize", startScreen);
 
+function muteSounds() {
+  soundEffects.forEach((sound) => {
+    if (sound) sound.muted = true;
+  });
+  world.muted = true;
+}
+
+function unmuteSounds() {
+  soundEffects.forEach((sound) => {
+    if (sound) sound.muted = false;
+  });
+  world.muted = false;
+}
+
+function updateSoundIcon(isMuted) {
+  const iconSrc = isMuted ? "img/12_game_ui/mute.png" : "img/12_game_ui/volume.png";
+  document.getElementById("soundIcon").src = iconSrc;
+}
+
 function toggleMuteAudio() {
-  console.log(soundEffects);
-  if (!soundEffects || soundEffects.length === 0) {
-    console.error("No sound effects found");
-    return;
+  if (isMuted === false) {
+    muteSounds();
+  } else {
+    unmuteSounds();
+  }
+  isMuted = !isMuted;
+  updateSoundIcon(isMuted);
+
+  localStorage.setItem('isMuted', isMuted);
+}
+
+function initializeSoundSettings() {
+  let savedMuteStatus = localStorage.getItem('isMuted');
+
+  if (savedMuteStatus !== null) {
+    isMuted = savedMuteStatus === 'true';
+  } else {
+    isMuted = false;
   }
 
-  if (isMuted === false) {
-    soundEffects.forEach((sound) => {
-      if (sound) sound.muted = true; // Stelle sicher, dass sound nicht null ist
-    });
-    isMuted = true;
-    document.getElementById("soundIcon").src = "img/12_game_ui/mute.png";
-    world.muted = true;
+  if (isMuted) {
+    muteSounds();
   } else {
-    soundEffects.forEach((sound) => {
-      if (sound) sound.muted = false; // Überprüfe erneut auf Null
-    });
-    isMuted = false;
-    document.getElementById("soundIcon").src = "img/12_game_ui/volume.png";
-    world.muted = false;
+    unmuteSounds();
   }
+  updateSoundIcon(isMuted);
 }
 
 function playBackgoundMusic() {
@@ -79,25 +107,25 @@ function playBackgoundMusic() {
 }
 
 function toggleFullScreen() {
-  let container = document.getElementById('canvasMask');
-  let canvas = document.getElementById('canvas');
-  let icon = document.getElementById('fullscreenIcon');
+  let container = document.getElementById("canvasMask");
+  let canvas = document.getElementById("canvas");
+  let icon = document.getElementById("fullscreenIcon");
   if (fullscreenActive == false) {
-      if (container.requestFullscreen) {
-          container.requestFullscreen();
-      } else if (container.msRequestFullscreen) {
-          container.msRequestFullscreen();
-      } else if (container.webkitRequestFullscreen) {
-          container.webkitRequestFullscreen();
-      }
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
-      icon.src = 'img/12_game_ui/exit-fullscreen.png';
-      fullscreenActive = true;
+    if (container.requestFullscreen) {
+      container.requestFullscreen();
+    } else if (container.msRequestFullscreen) {
+      container.msRequestFullscreen();
+    } else if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen();
+    }
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    icon.src = "img/12_game_ui/exit-fullscreen.png";
+    fullscreenActive = true;
   } else {
-      this.document.exitFullscreen();
-      icon.src = 'img/12_game_ui/full-screen.png';
-      fullscreenActive = false;
+    this.document.exitFullscreen();
+    icon.src = "img/12_game_ui/full-screen.png";
+    fullscreenActive = false;
   }
 }
 
@@ -169,55 +197,95 @@ window.addEventListener("keyup", (e) => {
 });
 
 function mobileButtonsTouchEvents() {
-  // Event listeners for touch events on mobile buttons.
-  document.getElementById('leftMobileButton').addEventListener('touchstart', (e) => {
+  document
+    .getElementById("leftMobileButton")
+    .addEventListener("touchstart", (e) => {
       e.preventDefault();
       keyboard.LEFT = true;
-  });
+    });
 
-  document.getElementById('leftMobileButton').addEventListener('touchend', (e) => {
+  document
+    .getElementById("leftMobileButton")
+    .addEventListener("touchend", (e) => {
       e.preventDefault();
       keyboard.LEFT = false;
-  });
+    });
 
-  document.getElementById('jumpMobileButton').addEventListener('touchstart', (e) => {
+  document
+    .getElementById("jumpMobileButton")
+    .addEventListener("touchstart", (e) => {
       e.preventDefault();
       keyboard.SPACE = true;
-  });
+    });
 
-  document.getElementById('jumpMobileButton').addEventListener('touchend', (e) => {
+  document
+    .getElementById("jumpMobileButton")
+    .addEventListener("touchend", (e) => {
       e.preventDefault();
       keyboard.SPACE = false;
-  });
+    });
 
-  document.getElementById('rightMobileButton').addEventListener('touchstart', (e) => {
+  document
+    .getElementById("rightMobileButton")
+    .addEventListener("touchstart", (e) => {
       e.preventDefault();
       keyboard.RIGHT = true;
-  });
+    });
 
-  document.getElementById('rightMobileButton').addEventListener('touchend', (e) => {
+  document
+    .getElementById("rightMobileButton")
+    .addEventListener("touchend", (e) => {
       e.preventDefault();
       keyboard.RIGHT = false;
-  });
+    });
 
-  document.getElementById('throwMobileButton').addEventListener('touchstart', (e) => {
+  document
+    .getElementById("throwMobileButton")
+    .addEventListener("touchstart", (e) => {
       e.preventDefault();
       keyboard.D = true;
-  });
+    });
 
-  document.getElementById('throwMobileButton').addEventListener('touchend', (e) => {
+  document
+    .getElementById("throwMobileButton")
+    .addEventListener("touchend", (e) => {
       e.preventDefault();
       keyboard.D = false;
-  });
+    });
 }
 
-function toggleElement(elementSelector, displayClass = 'd-flex', hideClass = 'd-none') {
+function toggleElementAction(
+  elementSelector,
+  action,
+  displayClass = "d-flex",
+  hideClass = "d-none"
+) {
   let element = document.querySelector(elementSelector);
-  if (element.classList.contains(hideClass)) {
+  if (action === "show") {
     element.classList.remove(hideClass);
     element.classList.add(displayClass);
-  } else {
+  } else if (action === "hide") {
     element.classList.remove(displayClass);
     element.classList.add(hideClass);
   }
+}
+
+function handleMobileButtons(){
+  setInterval(() => {
+      if (window.innerWidth < 1000) {
+        toggleElementAction("#mobileControlButtonContainer", "show");
+      } else {
+        toggleElementAction("#mobileControlButtonContainer", "hide");
+      }
+  }, 100);
+}
+
+function handleTurnDeviceWarning(){
+  setInterval(() => {
+      if (window.innerWidth < 600) {
+        toggleElementAction("#turnDeviceMessage", "show");
+      } else {
+        toggleElementAction("#turnDeviceMessage", "hide");
+      }
+  }, 100);
 }

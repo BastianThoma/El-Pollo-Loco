@@ -7,9 +7,7 @@
     <link
       rel="shortcut icon"
       href="img/3_enemies_chicken/chicken_small/1_walk/2_w.png"
-      type="image/x-icon"
-    />
-
+      type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
 
     <script src="models/drawable-object.class.js"></script>
@@ -35,36 +33,54 @@
     <script src="js/game.js"></script>
   </head>
 
-  <body onload="startScreen()">
+  <body onload="startScreen(), handleTurnDeviceWarning()">
     <h1>El Pollo Loco</h1>
+
+    <div id="turnDeviceMessage" class="d-none">
+      <img src="img/13_turn_device/rotation.png" alt="turn device image" />
+      <h2>Please turn your Device!</h2>
+    </div>
+
     <div id="canvasMask">
       <div class="gameButtonContainer">
-        <button id="startGameButton" class="gameButtons" onclick="init()">
+        <button id="startGameButton" class="gameButtons br-16" onclick="init()">
           Start Game!
         </button>
         <button
           id="controlsGameButton"
-          class="gameButtons"
-          onclick="toggleElement('#controlInstructions'), toggleElement('.gameButtonContainer')"
-        >
+          class="gameButtons br-16"
+          onclick="toggleElementAction('#controlInstructions', 'show'), toggleElementAction('.gameButtonContainer', 'hide')">
           Controls!
         </button>
       </div>
+
       <div class="optionButtons d-none">
-        <img id="soundIcon" onclick="toggleMuteAudio()" src="img/12_game_ui/volume.png" alt="Sound Image" width="32px" height="32px">
-        <img id="fullscreenIcon" onclick="toggleFullScreen()" src="img/12_game_ui/full-screen.png" alt="Fullscreen Image" width="32px" height="32px">
+        <img
+          id="soundIcon"
+          onclick="toggleMuteAudio()"
+          src="img/12_game_ui/volume.png"
+          alt="Sound Image"
+          width="5%"
+          height="5%" />
+        <img
+          id="fullscreenIcon"
+          onclick="toggleFullScreen()"
+          src="img/12_game_ui/full-screen.png"
+          alt="Fullscreen Image"
+          width="5%"
+          height="5%" />
       </div>
-      <div id="controlInstructions" class="d-none">
+
+      <div id="controlInstructions" class="d-none br-16">
         <img
           class="closeControlInstructionsButton"
-          onclick="toggleElement('#controlInstructions'), toggleElement('.gameButtonContainer')"
+          onclick="toggleElementAction('#controlInstructions', 'hide'), toggleElementAction('.gameButtonContainer', 'show')"
           src="img/12_game_ui/close.png"
           alt=""
           width="32px"
-          height="32px"
-        />
+          height="32px" />
         <div id="controlInstructionsContent">
-          <table>
+          <table id="controlInstructionsTable">
             <tbody>
               <tr>
                 <td class="controlText">&nbsp;Move left</td>
@@ -72,8 +88,7 @@
                   &nbsp;<img
                     class="buttonImg"
                     src="img/12_game_ui/left-arrow-button-icon.png"
-                    alt=""
-                  />
+                    alt="" />
                 </td>
               </tr>
               <tr>
@@ -82,8 +97,7 @@
                   &nbsp;<img
                     class="buttonImg"
                     src="img/12_game_ui/right-arrow-button-icon.png"
-                    alt=""
-                  />
+                    alt="" />
                 </td>
               </tr>
               <tr>
@@ -92,8 +106,7 @@
                   &nbsp;<img
                     class="buttonImg"
                     src="img/12_game_ui/space-button-icon.png"
-                    alt=""
-                  />
+                    alt="" />
                 </td>
               </tr>
               <tr>
@@ -102,14 +115,14 @@
                   &nbsp;<img
                     class="buttonImg"
                     src="img/12_game_ui/d-button-icon.png"
-                    alt=""
-                  />
+                    alt="" />
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+
       <div id="mobileControlButtonContainer" class="d-none">
         <div class="leftMobileControls d-flex">
           <button id="leftMobileButton" class="mobileControlButtons">
@@ -128,16 +141,17 @@
           </button>
         </div>
       </div>
-      <div id="restartGameScreen" class="d-none">
+
+      <div id="restartGameScreen" class="d-none br-16">
         <button
           id="restartGameButton"
-          class="gameButtons"
-          onclick="restartGame()"
-        >
+          class="gameButtons br-16"
+          onclick="restartGame()">
           Restart Game!
         </button>
       </div>
-      <canvas id="canvas" width="720" height="480"></canvas>
+
+      <canvas id="canvas" class="br-16" width="720" height="480"></canvas>
     </div>
   </body>
 </html>
