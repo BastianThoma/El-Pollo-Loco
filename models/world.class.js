@@ -82,7 +82,7 @@ class World {
     setTimeout(() => {
       this.stopGame();
       toggleElementAction('#restartGameScreen', 'show');
-      // handleTurnDeviceWarning();
+      handleTurnDeviceWarning();
     }, 3000);
     this.addToMap(this.loseEndscreen);
     this.playObjectAudio(this.loseEndscreen, "lose_sound", 0.4);
