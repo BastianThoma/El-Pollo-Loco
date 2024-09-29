@@ -146,19 +146,18 @@ canvas {
     position: absolute;
     justify-content: space-around;
     align-items: end;
-    pointer-events: none;
 }
 
 .leftMobileControls {
     gap: 20%;
     margin-bottom: 2%;
-    pointer-events: auto;
+    justify-content: center;
 }
 
 .rightMobileControls {
     gap: 20%;
     margin-bottom: 2%;
-    pointer-events: auto;
+    justify-content: center;
 }
 
 .mobileControlButtons {
@@ -171,7 +170,7 @@ canvas {
     align-items: center;
 }
 
-.mobileControlButtons:hover {
+.mobileControlButtons:active {
     border: 3px solid #039BE5;
 }
 
@@ -253,4 +252,9 @@ canvas {
     #canvasMask {
         width: 100% !important;
     }
+
+    #restartGameScreen {
+        border-radius: 0px !important;
+    }
+    
 }
