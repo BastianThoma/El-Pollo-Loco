@@ -5,6 +5,7 @@ class Chicken extends MovableObject {
   energy = 35;
   currentImage = 0;
   hasPlayedDeathSound = false;
+  isJumpedOn = false;
 
   offset = {
     top: 10,
@@ -64,12 +65,6 @@ class Chicken extends MovableObject {
   update() {
     if (this.isDead() || this.isJumpedOn == true) {
       this.die();
-      setTimeout(() => {
-        let index = world.level.enemies.indexOf(this);
-        if (index !== -1) {
-          world.level.enemies.splice(index, 1);
-        }
-      }, 300);
     }
   }
 }

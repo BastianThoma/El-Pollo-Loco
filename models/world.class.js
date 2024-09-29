@@ -53,11 +53,11 @@ class World {
       this.killByJump();
     }, 1000 / 60);
     let interval2 = setInterval(() => {
-      this.checkCollisions();
       this.returnCharacterPosition();
     }, 300);
     let interval3 = setInterval(() => {
       this.checkThrowObjects();
+      this.checkCollisions();
       this.checkCollectables();
       this.checkWinOrLose();
     }, 100);
@@ -81,25 +81,25 @@ class World {
   loseScenario() {
     setTimeout(() => {
       this.stopGame();
-      toggleElementAction('#restartGameScreen', 'show');
+      toggleElementAction("#restartGameScreen", "show");
       handleTurnDeviceWarning();
     }, 3000);
     this.addToMap(this.loseEndscreen);
     this.playObjectAudio(this.loseEndscreen, "lose_sound", 0.4);
     this.pauseAudio();
-    toggleElementAction('#mobileControlButtonContainer', 'hide')
+    toggleElementAction("#mobileControlButtonContainer", "hide");
   }
 
   winScenario() {
     setTimeout(() => {
       this.stopGame();
-      toggleElementAction('#restartGameScreen', 'show');
+      toggleElementAction("#restartGameScreen", "show");
       handleTurnDeviceWarning();
     }, 3000);
     this.addToMap(this.winEndscreen);
     this.playObjectAudio(this.winEndscreen, "win_sound", 0.4);
     this.pauseAudio();
-    toggleElementAction('#mobileControlButtonContainer', 'hide')
+    toggleElementAction("#mobileControlButtonContainer", "hide");
   }
 
   checkWinOrLose() {
@@ -149,7 +149,7 @@ class World {
 
   checkThrowObjects() {
     if (this.keyboard.D && this.collectedBottles > 0) {
-      const direction = this.character.otherDirection ? "left" : "right";
+      let direction = this.character.otherDirection ? "left" : "right";
       let bottle = new ThrowableObject(
         this.character.x + 100,
         this.character.y + 100,
@@ -163,7 +163,7 @@ class World {
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
+      if (!enemy.isJumpedOn && this.character.isColliding(enemy)) {
         this.character.hit(10);
         this.healthBar.setPercentage(this.character.energy);
       }
@@ -207,7 +207,7 @@ class World {
   }
 
   jumpAfterKill() {
-    if (this.character.y > 75) {
+    if (this.character.y > 70) {
       this.character.speedY = 25;
       this.playObjectAudio(this.character, "jumping_sound", 0.1);
     }

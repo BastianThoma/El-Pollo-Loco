@@ -146,18 +146,21 @@ canvas {
     position: absolute;
     justify-content: space-around;
     align-items: end;
+    pointer-events: none;
 }
 
 .leftMobileControls {
     gap: 20%;
     margin-bottom: 2%;
     justify-content: center;
+    pointer-events: auto;
 }
 
 .rightMobileControls {
     gap: 20%;
     margin-bottom: 2%;
     justify-content: center;
+    pointer-events: auto;
 }
 
 .mobileControlButtons {

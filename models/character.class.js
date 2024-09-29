@@ -7,7 +7,7 @@ class Character extends MovableObject {
   offset = {
     top: 110,
     left: 35,
-    right: 65,
+    right: 70,
     bottom: 120,
   };
   IMAGES_WALKING = [
