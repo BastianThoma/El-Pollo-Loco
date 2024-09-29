@@ -86,18 +86,27 @@ class ThrowableObject extends MovableObject {
 
   checkBottleHit() {
     world.level.enemies.forEach((enemy) => {
-      if (this.isColliding(enemy)) {
-        this.handleCollision();
-        enemy.hit(35);
-      }
+      this.checkCollisionWithEnemy(enemy);
     });
+  
     world.level.endboss.forEach((boss) => {
-      if (this.isColliding(boss)) {
-        this.handleCollision();
-        boss.hit(35);
-        world.endbossBar.setPercentage(boss.energy);
-      }
+      this.checkCollisionWithBoss(boss);
     });
+  }
+  
+  checkCollisionWithEnemy(enemy) {
+    if (this.isColliding(enemy)) {
+      this.handleCollision();
+      enemy.hit(35);
+    }
+  }
+  
+  checkCollisionWithBoss(boss) {
+    if (this.isColliding(boss)) {
+      this.handleCollision();
+      boss.hit(35);
+      world.endbossBar.setPercentage(boss.energy);
+    }
   }
 
   handleCollision() {
@@ -112,8 +121,6 @@ class ThrowableObject extends MovableObject {
     if (!world.muted) {
       this.startSplashing();
       this.playAudio("shattering_sound", 0.2);
-    } else {
-      console.log("World is muted. Shattering sound will not play.");
     }
   }
 
