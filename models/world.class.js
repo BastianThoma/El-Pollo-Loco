@@ -53,11 +53,11 @@ class World {
       this.killByJump();
     }, 1000 / 60);
     let interval2 = setInterval(() => {
+      this.checkCollisions();
       this.returnCharacterPosition();
     }, 300);
     let interval3 = setInterval(() => {
       this.checkThrowObjects();
-      this.checkCollisions();
       this.checkCollectables();
       this.checkWinOrLose();
     }, 100);
@@ -163,7 +163,7 @@ class World {
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (!enemy.isJumpedOn && this.character.isColliding(enemy)) {
+      if (this.character.isColliding(enemy) && !enemy.isJumpedOn) {
         this.character.hit(10);
         this.healthBar.setPercentage(this.character.energy);
       }
