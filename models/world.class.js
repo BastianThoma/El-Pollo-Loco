@@ -178,7 +178,7 @@ class World {
   }
 
   returnCharacterPosition() {
-    if (this.character.x > 1400) {
+    if (this.character.x > 2450) {
       this.isAtBoss = true;
     }
   }
@@ -245,8 +245,6 @@ class World {
     this.ctx.translate(this.camera_x, 0);
 
     this.ctx.translate(-this.camera_x, 0);
-
-    // draw wird immer wieder aufgerufen.
     let self = this;
     requestAnimationFrame(function () {
       self.draw();

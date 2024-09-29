@@ -91,6 +91,12 @@ class MovableObject extends DrawableObject {
     this.audio[audio].play();
   }
 
+  pauseAudio() {
+    setTimeout(() => {
+      this.loopAudio = false;
+    }, 50);
+  }
+
   moveRight() {
     this.x += this.speed;
   }

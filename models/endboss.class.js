@@ -76,7 +76,7 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.hadFirstContact) {
         this.moveEndboss();
-      } else if (world.character.x < 2600) {
+      } else if (world.character.x < 2550) {
         this.playAnimation(this.IMAGES_ALERT);
       }
     }, 100);
@@ -93,7 +93,7 @@ class Endboss extends MovableObject {
   }
 
   checkIfCharacterIsAtBoss() {
-    if (world.character.x > 2600) {
+    if (world.character.x > 2550) {
       this.hadFirstContact = true;
       this.speed += 0.4;
     }

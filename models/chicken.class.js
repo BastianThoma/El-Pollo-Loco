@@ -4,6 +4,7 @@ class Chicken extends MovableObject {
   width = 70;
   energy = 35;
   currentImage = 0;
+  hasPlayedDeathSound = false;
 
   offset = {
     top: 10,
@@ -22,6 +23,7 @@ class Chicken extends MovableObject {
 
   audio = {
     jumpedOn_sound: new Audio('audio/jump on enemy.mp3'),
+    chickenDead_sound: new Audio('audio/chicken dead.mp3'),
   };
 
   constructor() {
@@ -29,8 +31,7 @@ class Chicken extends MovableObject {
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
     this.AudioToArray(this.audio);
-    this.x = 500 + Math.random() * 800;
-
+    this.x = 800 + Math.random() * 2800;
     this.speed = 0.15 + Math.random() * 0.5;
     this.animate();
   }
@@ -51,6 +52,12 @@ class Chicken extends MovableObject {
   die() {
     clearInterval(this.walkInterval);
     this.loadImage(this.IMAGES_DEAD);
+    
+    if (!this.hasPlayedDeathSound) {
+      this.playAudio('chickenDead_sound', 0.2);
+      this.hasPlayedDeathSound = true;
+    }
+
     this.speed = 0;
   }
 
