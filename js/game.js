@@ -4,6 +4,8 @@ let keyboard = new Keyboard();
 let isMuted = false;
 let stopGame = false;
 let fullscreenActive = false;
+let shortIdleTimer;
+let longIdleTimer;
 
 let backgroundMusic = new Audio("audio/background music.mp3");
 
@@ -161,29 +163,35 @@ function updateFullScreenIcon(icon, isFullScreen) {
     : "img/12_game_ui/full-screen.png";
 }
 
+function shortIdle() {
+  keyboard.idle = true;
+}
+
+function longIdle() {
+  keyboard.idle = false;
+  keyboard.longIdle = true;
+}
+
+function resetTimer() {
+  keyboard.idle = false;
+  keyboard.longIdle = false;
+  clearTimeout(shortIdleTimer);
+  clearTimeout(longIdleTimer);
+  startTimers();
+}
+
+function startTimers() {
+  shortIdleTimer = setTimeout(shortIdle, 3000);
+  longIdleTimer = setTimeout(longIdle, 7000);
+}
+
 function idle() {
-  function shortIdle() {
-    keyboard.idle = true;
-  }
-  function longIdle() {
-    keyboard.idle = false;
-    keyboard.longIdle = true;
-  }
-  var shortIdleTimer;
-  var longIdleTimer;
-  function resetTimer() {
-    keyboard.idle = false;
-    keyboard.longIdle = false;
-    clearTimeout(shortIdleTimer);
-    clearTimeout(longIdleTimer);
-    shortIdleTimer = setTimeout(shortIdle, 3000);
-    longIdleTimer = setTimeout(longIdle, 7000);
-  }
-  window.addEventListener("mousemove", resetTimer, true);
-  window.addEventListener("mousedown", resetTimer, true);
-  window.addEventListener("click", resetTimer, true);
-  window.addEventListener("keydown", resetTimer, true);
-  window.addEventListener("touchstart", resetTimer, true);
+  const events = ["mousemove", "mousedown", "click", "keydown", "touchstart"];
+  events.forEach(event => {
+    window.addEventListener(event, resetTimer, true);
+  });
+
+  startTimers();
 }
 
 window.addEventListener("keydown", (e) => {
