@@ -66,14 +66,17 @@ class ThrowableObject extends MovableObject {
     let splashIndex = 0;
     let splashInterval = setInterval(() => {
       this.playAnimation(this.IMAGES_SPLASHING);
-
       splashIndex++;
-      if (splashIndex >= this.IMAGES_SPLASHING.length) {
-        clearInterval(splashInterval);
-        this.remove(); 
-      }
+      this.checkSplashEnd(splashIndex, splashInterval);
     }, 100);
     intervalIds.push(splashInterval);
+  }
+  
+  checkSplashEnd(splashIndex, splashInterval) {
+    if (splashIndex >= this.IMAGES_SPLASHING.length) {
+      clearInterval(splashInterval);
+      this.remove();
+    }
   }
 
   move() {
