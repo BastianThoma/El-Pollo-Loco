@@ -70,7 +70,9 @@ function unmuteSounds() {
 }
 
 function updateSoundIcon(isMuted) {
-  const iconSrc = isMuted ? "img/12_game_ui/mute.png" : "img/12_game_ui/volume.png";
+  const iconSrc = isMuted
+    ? "img/12_game_ui/mute.png"
+    : "img/12_game_ui/volume.png";
   document.getElementById("soundIcon").src = iconSrc;
 }
 
@@ -83,14 +85,14 @@ function toggleMuteAudio() {
   isMuted = !isMuted;
   updateSoundIcon(isMuted);
 
-  localStorage.setItem('isMuted', isMuted);
+  localStorage.setItem("isMuted", isMuted);
 }
 
 function initializeSoundSettings() {
-  let savedMuteStatus = localStorage.getItem('isMuted');
+  let savedMuteStatus = localStorage.getItem("isMuted");
 
   if (savedMuteStatus !== null) {
-    isMuted = savedMuteStatus === 'true';
+    isMuted = savedMuteStatus === "true";
   } else {
     isMuted = false;
   }
@@ -187,7 +189,7 @@ function startTimers() {
 
 function idle() {
   const events = ["mousemove", "mousedown", "click", "keydown", "touchstart"];
-  events.forEach(event => {
+  events.forEach((event) => {
     window.addEventListener(event, resetTimer, true);
   });
 
@@ -310,22 +312,22 @@ function toggleElementAction(
   }
 }
 
-function handleMobileButtons(){
+function handleMobileButtons() {
   setInterval(() => {
-      if (window.innerWidth < 1000) {
-        toggleElementAction("#mobileControlButtonContainer", "show");
-      } else {
-        toggleElementAction("#mobileControlButtonContainer", "hide");
-      }
+    if (window.innerWidth < 1000) {
+      toggleElementAction("#mobileControlButtonContainer", "show");
+    } else {
+      toggleElementAction("#mobileControlButtonContainer", "hide");
+    }
   }, 100);
 }
 
-function handleTurnDeviceWarning(){
+function handleTurnDeviceWarning() {
   setInterval(() => {
-      if (window.innerWidth < 600) {
-        toggleElementAction("#turnDeviceMessage", "show");
-      } else {
-        toggleElementAction("#turnDeviceMessage", "hide");
-      }
+    if (window.innerWidth < 600) {
+      toggleElementAction("#turnDeviceMessage", "show");
+    } else {
+      toggleElementAction("#turnDeviceMessage", "hide");
+    }
   }, 100);
 }
