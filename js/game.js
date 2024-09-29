@@ -110,23 +110,55 @@ function toggleFullScreen() {
   let container = document.getElementById("canvasMask");
   let canvas = document.getElementById("canvas");
   let icon = document.getElementById("fullscreenIcon");
+  let restartGameScreen = document.getElementById("restartGameScreen");
+
   if (fullscreenActive == false) {
-    if (container.requestFullscreen) {
-      container.requestFullscreen();
-    } else if (container.msRequestFullscreen) {
-      container.msRequestFullscreen();
-    } else if (container.webkitRequestFullscreen) {
-      container.webkitRequestFullscreen();
-    }
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
-    icon.src = "img/12_game_ui/exit-fullscreen.png";
+    enterFullScreen(container);
+    adjustCanvasForFullScreen(canvas, restartGameScreen, true);
+    updateFullScreenIcon(icon, true);
     fullscreenActive = true;
   } else {
-    this.document.exitFullscreen();
-    icon.src = "img/12_game_ui/full-screen.png";
+    exitFullScreen();
+    adjustCanvasForFullScreen(canvas, restartGameScreen, false);
+    updateFullScreenIcon(icon, false);
     fullscreenActive = false;
   }
+}
+
+function enterFullScreen(element) {
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  }
+}
+
+function exitFullScreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
+}
+
+function adjustCanvasForFullScreen(canvas, restartGameScreen, isFullScreen) {
+  if (isFullScreen) {
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.classList.remove("br-16");
+    restartGameScreen.classList.remove("br-16");
+  } else {
+    canvas.style.width = "";
+    canvas.style.height = "";
+    canvas.classList.add("br-16");
+    restartGameScreen.classList.add("br-16");
+  }
+}
+
+function updateFullScreenIcon(icon, isFullScreen) {
+  icon.src = isFullScreen
+    ? "img/12_game_ui/exit-fullscreen.png"
+    : "img/12_game_ui/full-screen.png";
 }
 
 function idle() {
