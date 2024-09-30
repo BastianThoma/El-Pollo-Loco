@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: 'Xisfani';
     src: url('fonts/Xisfani.ttf') format('TrueType');
@@ -259,5 +258,4 @@ canvas {
     #restartGameScreen {
         border-radius: 0px !important;
     }
-    
 }

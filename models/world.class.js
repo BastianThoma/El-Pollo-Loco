@@ -1,19 +1,18 @@
 class World {
   character = new Character();
+  healthBar = new HealthBar();
+  coinBar = new CoinBar();
+  bottleBar = new BottleBar();
+  endbossBar = new EndbossBar();
+  winEndscreen = new Endscreen("img/9_intro_outro_screens/win/won_2.png", 0, 0);
+  loseEndscreen = new Endscreen("img/9_intro_outro_screens/game_over/oh no you lost!.png", 0, 0);
   level = level1;
   canvas;
   ctx;
   keyboard;
   camera_x = 0;
-  healthBar = new HealthBar();
-  coinBar = new CoinBar();
-  bottleBar = new BottleBar();
-  endbossBar = new EndbossBar();
-  throwableObjects = [];
-  collectedBottles = [];
   collectedBottles = 0;
   totalBottles = level1.bottles.length;
-  collectedCoins = [];
   collectedCoins = 0;
   totalCoins = level1.coins.length;
   loopAudio = true;
@@ -21,12 +20,10 @@ class World {
   isAtBoss = false;
   win = false;
   lose = false;
-  winEndscreen = new Endscreen("img/9_intro_outro_screens/win/won_2.png", 0, 0);
-  loseEndscreen = new Endscreen(
-    "img/9_intro_outro_screens/game_over/oh no you lost!.png",
-    0,
-    0
-  );
+  collectedCoins = [];
+  throwableObjects = [];
+  collectedBottles = [];
+
   audio = {
     coinCollect_sound: new Audio("audio/collect coin.mp3"),
     bottleCollect_sound: new Audio("audio/collect bottle.mp3"),
@@ -264,7 +261,8 @@ class World {
 
     mo.draw(this.ctx);
 
-    mo.drawFrame(this.ctx);
+    // Code in Zeile 265 Aktivieren um Hitboxen anzeigen zu lassen.
+    // mo.drawFrame(this.ctx);    
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);

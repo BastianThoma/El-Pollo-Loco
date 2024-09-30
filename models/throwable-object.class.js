@@ -71,7 +71,7 @@ class ThrowableObject extends MovableObject {
     }, 100);
     intervalIds.push(splashInterval);
   }
-  
+
   checkSplashEnd(splashIndex, splashInterval) {
     if (splashIndex >= this.IMAGES_SPLASHING.length) {
       clearInterval(splashInterval);
@@ -91,19 +91,19 @@ class ThrowableObject extends MovableObject {
     world.level.enemies.forEach((enemy) => {
       this.checkCollisionWithEnemy(enemy);
     });
-  
+
     world.level.endboss.forEach((boss) => {
       this.checkCollisionWithBoss(boss);
     });
   }
-  
+
   checkCollisionWithEnemy(enemy) {
     if (this.isColliding(enemy)) {
       this.handleCollision();
       enemy.hit(35);
     }
   }
-  
+
   checkCollisionWithBoss(boss) {
     if (this.isColliding(boss)) {
       this.handleCollision();

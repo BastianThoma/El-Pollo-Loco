@@ -6,7 +6,6 @@ class Endboss extends MovableObject {
   speed = 5;
   hadFirstContact = false;
 
-
   offset = {
     top: 90,
     left: 40,

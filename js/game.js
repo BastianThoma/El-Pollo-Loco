@@ -35,6 +35,7 @@ function restartGame() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   idle();
+  playBackgoundMusic();
   handleMobileButtons();
   handleTurnDeviceWarning();
   mobileButtonsTouchEvents();
@@ -42,10 +43,10 @@ function restartGame() {
 }
 
 function startScreen() {
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
+  let canvas = document.getElementById("canvas");
+  let ctx = canvas.getContext("2d");
 
-  const img = new Image();
+  let img = new Image();
   img.src = "img/9_intro_outro_screens/start/startscreen_2.png";
 
   img.onload = function () {
