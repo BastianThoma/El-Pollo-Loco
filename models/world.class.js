@@ -160,7 +160,7 @@ class World {
       toggleElementAction("#restartGameScreen", "show");
       handleTurnDeviceWarning();
     }, 3000);
-
+    toggleElementAction(".optionButtons", "hide");
     this.addToMap(this.loseEndscreen);
     this.playObjectAudio(this.loseEndscreen, "lose_sound", 0.4);
     this.pauseAudio();
@@ -176,7 +176,7 @@ class World {
       toggleElementAction("#restartGameScreen", "show");
       handleTurnDeviceWarning();
     }, 3000);
-
+    toggleElementAction(".optionButtons", "hide");
     this.addToMap(this.winEndscreen);
     this.playObjectAudio(this.winEndscreen, "win_sound", 0.4);
     this.pauseAudio();

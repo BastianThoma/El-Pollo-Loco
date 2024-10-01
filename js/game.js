@@ -49,6 +49,7 @@ function init() {
  */
 function restartGame() {
   toggleElementAction("#restartGameScreen", "hide");
+  toggleElementAction(".optionButtons", "show");
   soundEffects = [backgroundMusic];
   stopGame = false;
   world = null;
