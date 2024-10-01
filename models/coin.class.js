@@ -39,7 +39,7 @@ class Coin extends MovableObject {
    * Array of image paths for the Coin animations.
    * @type {string[]}
    */
-  IMAGES_COIN = ["img/8_coin/coin_1.png", "img/8_coin/coin_2.png"];
+  IMAGES_COIN = ["../img/8_coin/coin_1.png", "img/8_coin/coin_2.png"];
 
   /**
    * Creates a Coin object and initializes its position and images.
@@ -48,7 +48,7 @@ class Coin extends MovableObject {
    * @param {number} y - The y-coordinate of the Coin.
    */
   constructor(x, y) {
-    super().loadImage("img/8_coin/coin_1.png");
+    super().loadImage("../img/8_coin/coin_1.png");
     this.loadImages(this.IMAGES_COIN);
     this.x = x;
     this.y = y;

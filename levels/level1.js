@@ -118,11 +118,11 @@ function initLevel() {
       new Coin(2400, 120),
     ],
     [
-      new Bottle("img/6_salsa_bottle/1_salsa_bottle_on_ground.png", 555, 320),
-      new Bottle("img/6_salsa_bottle/2_salsa_bottle_on_ground.png", 975, 350),
-      new Bottle("img/6_salsa_bottle/1_salsa_bottle_on_ground.png", 1300, 340),
-      new Bottle("img/6_salsa_bottle/2_salsa_bottle_on_ground.png", 1850, 330),
-      new Bottle("img/6_salsa_bottle/1_salsa_bottle_on_ground.png", 2250, 330),
+      new Bottle("../img/6_salsa_bottle/1_salsa_bottle_on_ground.png", 555, 320),
+      new Bottle("../img/6_salsa_bottle/2_salsa_bottle_on_ground.png", 975, 350),
+      new Bottle("../img/6_salsa_bottle/1_salsa_bottle_on_ground.png", 1300, 340),
+      new Bottle("../img/6_salsa_bottle/2_salsa_bottle_on_ground.png", 1850, 330),
+      new Bottle("../img/6_salsa_bottle/1_salsa_bottle_on_ground.png", 2250, 330),
     ]
   );
 }

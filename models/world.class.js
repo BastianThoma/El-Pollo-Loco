@@ -19,11 +19,11 @@ class World {
   endbossBar = new EndbossBar();
 
   /** @type {Endscreen} The end screen displayed when the player wins */
-  winEndscreen = new Endscreen("img/9_intro_outro_screens/win/won_2.png", 0, 0);
+  winEndscreen = new Endscreen("../img/9_intro_outro_screens/win/won_2.png", 0, 0);
 
   /** @type {Endscreen} The end screen displayed when the player loses */
   loseEndscreen = new Endscreen(
-    "img/9_intro_outro_screens/game_over/oh no you lost!.png",
+    "../img/9_intro_outro_screens/game_over/oh no you lost!.png",
     0,
     0
   );
