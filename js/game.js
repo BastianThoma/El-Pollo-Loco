@@ -72,7 +72,7 @@ function startScreen() {
   let ctx = canvas.getContext("2d");
 
   let img = new Image();
-  img.src = "../img/9_intro_outro_screens/start/startscreen_2.png";
+  img.src = "./img/9_intro_outro_screens/start/startscreen_2.png";
 
   img.onload = function () {
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -110,8 +110,8 @@ function unmuteSounds() {
  */
 function updateSoundIcon(isMuted) {
   const iconSrc = isMuted
-    ? "../img/12_game_ui/mute.png"
-    : "../img/12_game_ui/volume.png";
+    ? "./img/12_game_ui/mute.png"
+    : "./img/12_game_ui/volume.png";
   document.getElementById("soundIcon").src = iconSrc;
 }
 
@@ -238,8 +238,8 @@ function adjustCanvasForFullScreen(canvas, restartGameScreen, isFullScreen) {
  */
 function updateFullScreenIcon(icon, isFullScreen) {
   icon.src = isFullScreen
-    ? "../img/12_game_ui/exit-fullscreen.png"
-    : "../img/12_game_ui/full-screen.png";
+    ? "./img/12_game_ui/exit-fullscreen.png"
+    : "./img/12_game_ui/full-screen.png";
 }
 
 /**

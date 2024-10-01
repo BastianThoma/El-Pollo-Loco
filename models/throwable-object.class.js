@@ -22,10 +22,10 @@ class ThrowableObject extends MovableObject {
    * @description Array of image URLs for the rotating animation of the object.
    */
   IMAGES_ROTATING = [
-    "../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
-    "../img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
-    "../img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
-    "../img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
+    "./img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
+    "./img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
+    "./img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
+    "./img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
   ];
 
   /**
@@ -33,12 +33,12 @@ class ThrowableObject extends MovableObject {
    * @description Array of image URLs for the splashing animation of the object.
    */
   IMAGES_SPLASHING = [
-    "../img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
-    "../img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
-    "../img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
-    "../img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
-    "../img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
-    "../img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
+    "./img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
+    "./img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
+    "./img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
+    "./img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
+    "./img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
+    "./img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
   ];
 
   /**
@@ -57,7 +57,7 @@ class ThrowableObject extends MovableObject {
    * @param {string} direction - The direction in which the object is thrown ("left" or "right").
    */
   constructor(x, y, direction) {
-    super().loadImage("../img/6_salsa_bottle/salsa_bottle.png");
+    super().loadImage("./img/6_salsa_bottle/salsa_bottle.png");
     this.AudioToArray(this.audio);
     this.loadImages(this.IMAGES_ROTATING);
     this.loadImages(this.IMAGES_SPLASHING);

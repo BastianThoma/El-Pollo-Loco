@@ -29,7 +29,7 @@ class Cloud extends MovableObject {
    * Initializes the cloud's position and speed, and loads its image.
    */
   constructor() {
-    super().loadImage("../img/5_background/layers/4_clouds/1.png");
+    super().loadImage("./img/5_background/layers/4_clouds/1.png");
 
     /**
      * The horizontal position of the cloud, randomly set within a range.
