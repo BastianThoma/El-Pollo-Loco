@@ -19,7 +19,11 @@ class World {
   endbossBar = new EndbossBar();
 
   /** @type {Endscreen} The end screen displayed when the player wins */
-  winEndscreen = new Endscreen("./img/9_intro_outro_screens/win/won_2.png", 0, 0);
+  winEndscreen = new Endscreen(
+    "./img/9_intro_outro_screens/win/won_2.png",
+    0,
+    0
+  );
 
   /** @type {Endscreen} The end screen displayed when the player loses */
   loseEndscreen = new Endscreen(
@@ -42,6 +46,18 @@ class World {
 
   /** @type {number} The x-coordinate of the camera */
   camera_x = 0;
+
+  /**
+   * @type {number} lastThrowTime - Zeitstempel des letzten Wurfs in Millisekunden.
+   * @default 0
+   */
+  lastThrowTime = 0;
+
+  /**
+   * @type {number} throwDelay - Verzögerung zwischen Würfen in Millisekunden.
+   * @default 300
+   */
+  throwDelay = 500;
 
   /** @type {number} The number of collected bottles */
   collectedBottles = 0;
@@ -126,7 +142,6 @@ class World {
       this.checkCollectables();
       this.checkWinOrLose();
     }, 100);
-
     intervalIds.push(interval, interval2, interval3);
   }
 
@@ -245,9 +260,21 @@ class World {
 
   /**
    * Checks if the player is throwing objects.
+   * This method checks if the player has pressed the 'D' key,
+   * if there are collected bottles available, and if the throw delay
+   * has passed since the last throw. If all conditions are met,
+   * a new ThrowableObject is created and added to the throwableObjects array.
+   *
+   * @returns {void}
    */
   checkThrowObjects() {
-    if (this.keyboard.D && this.collectedBottles > 0) {
+    let currentTime = Date.now(); // Aktuelle Zeit in Millisekunden
+    // Überprüfen, ob die Taste gedrückt ist, genug Flaschen vorhanden sind und die Verzögerung vorbei ist
+    if (
+      this.keyboard.D &&
+      this.collectedBottles > 0 &&
+      currentTime - this.lastThrowTime >= this.throwDelay
+    ) {
       let direction = this.character.otherDirection ? "left" : "right";
       let bottle = new ThrowableObject(
         this.character.x + 100,
@@ -257,6 +284,7 @@ class World {
       this.throwableObjects.push(bottle);
       this.collectedBottles--;
       this.bottleBar.updateBottleBar(this.collectedBottles, this.totalBottles);
+      this.lastThrowTime = currentTime; // Aktualisiere die Zeit des letzten Wurfs
     }
   }
 

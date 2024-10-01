@@ -34,11 +34,11 @@ function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   idle();
+  playBackgoundMusic();
   toggleElementAction(".gameButtonContainer", "hide");
   handleMobileButtons();
   handleTurnDeviceWarning();
   mobileButtonsTouchEvents();
-  playBackgoundMusic();
   toggleElementAction(".optionButtons", "show");
   initializeSoundSettings();
 }
