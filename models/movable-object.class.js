@@ -132,35 +132,24 @@ class MovableObject extends DrawableObject {
     return this.energy == 0;
   }
 
-  /**
-   * Plays an animation using the provided image array.
-   * The current image is updated based on the animation sequence.
-   * @param {string[]} images - An array of image paths to use for the animation.
-   * @returns {void}
-   */
-  playAnimation(images) {
-    let i = this.currentImage % images.length;
-    let path = images[i];
-    this.img = this.imageCache[path];
-    this.currentImage++;
-  }
+/**
+ * Plays an animation using the provided image array.
+ * The current image is updated based on the animation sequence.
+ * If the last image is shown, the currentImage is reset to 0.
+ * @param {string[]} images - An array of image paths to use for the animation.
+ * @returns {void}
+ */
+playAnimation(images) {
+  let i = this.currentImage % images.length;
+  let path = images[i];
+  this.img = this.imageCache[path];
 
-  /**
-   * Plays an animation once using the provided image array.
-   * Resets the animation when the last image is reached.
-   * @param {string[]} images - An array of image paths to use for the animation.
-   * @returns {void}
-   */
-  playAnimationOnce(images) {
-    let i = this.currentImage % images.length;
-    let path = images[i];
-    this.img = this.imageCache[path];
-    if (this.currentImage === images.length - 1) {
-      this.currentImage = 0;
-      return;
-    }
+  if (this.currentImage >= images.length - 1) {
+    this.currentImage = 0;
+  } else {
     this.currentImage++;
   }
+}
 
   /**
    * Plays audio associated with the object at a specified volume.

@@ -139,8 +139,7 @@ class Character extends MovableObject {
 
     let interval2 = setInterval(() => {
       this.handleAnimations();
-    }, 100);
-
+    }, 1000 / 12);
     intervalIds.push(interval, interval2);
   }
 
@@ -150,7 +149,6 @@ class Character extends MovableObject {
    */
   handleMovement() {
     if (this.isDead()) return;
-
     this.audio["walking_sound"].pause();
     let { RIGHT, LEFT, SPACE } = this.world.keyboard;
     let canMoveRight = RIGHT && this.x < this.world.level.level_end_x;
@@ -183,7 +181,7 @@ class Character extends MovableObject {
     } else if (this.isAboveGround()) {
       this.playAnimation(this.IMAGES_JUMPING);
     } else if (this.world.keyboard.idle) {
-      this.playAnimationOnce(this.IMAGES_IDLE);
+      this.playAnimation(this.IMAGES_IDLE);
     } else if (this.world.keyboard.longIdle) {
       this.playAnimation(this.IMAGES_LONG_IDLE);
       this.playAudio("snoring_sound", 0.2);
@@ -201,7 +199,7 @@ class Character extends MovableObject {
       this.playAudio("dying_sound", 0.2);
       this.dyingSoundPlayed = true;
     }
-    this.playAnimationOnce(this.IMAGES_DEAD);
+    this.playAnimation(this.IMAGES_DEAD);
   }
 
   /**

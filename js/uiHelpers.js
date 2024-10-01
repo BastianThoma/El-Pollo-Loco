@@ -1,65 +1,51 @@
 /**
- * Adds touch event listeners for mobile control buttons.
- * Handles `touchstart` and `touchend` events for controlling game actions.
+ * Initializes touch event listeners for mobile control buttons.
+ * Sets up touchstart and touchend events for controlling game actions.
  * Prevents default behavior for cancelable events.
  * @function
  */
 function mobileButtonsTouchEvents() {
-  document
-    .getElementById("leftMobileButton")
-    .addEventListener("touchstart", (e) => {
-      if (event.cancelable) event.preventDefault();
-      keyboard.LEFT = true;
-    });
+  addTouchEventListeners("leftMobileButton", 
+    () => { keyboard.LEFT = true; }, 
+    () => { keyboard.LEFT = false; }
+  );
 
-  document
-    .getElementById("leftMobileButton")
-    .addEventListener("touchend", (e) => {
-      if (event.cancelable) event.preventDefault();
-      keyboard.LEFT = false;
-    });
+  addTouchEventListeners("jumpMobileButton", 
+    () => { keyboard.SPACE = true; }, 
+    () => { keyboard.SPACE = false; }
+  );
 
-  document
-    .getElementById("jumpMobileButton")
-    .addEventListener("touchstart", (e) => {
-      if (event.cancelable) event.preventDefault();
-      keyboard.SPACE = true;
-    });
+  addTouchEventListeners("rightMobileButton", 
+    () => { keyboard.RIGHT = true; }, 
+    () => { keyboard.RIGHT = false; }
+  );
 
-  document
-    .getElementById("jumpMobileButton")
-    .addEventListener("touchend", (e) => {
-      if (event.cancelable) event.preventDefault();
-      keyboard.SPACE = false;
-    });
+  addTouchEventListeners("throwMobileButton", 
+    () => { keyboard.D = true; }, 
+    () => { keyboard.D = false; }
+  );
+}
 
-  document
-    .getElementById("rightMobileButton")
-    .addEventListener("touchstart", (e) => {
-      if (event.cancelable) event.preventDefault();
-      keyboard.RIGHT = true;
-    });
+/**
+ * Adds touchstart and touchend event listeners to a specified button.
+ * Calls the provided functions to set keyboard states on touch events.
+ *
+ * @param {string} buttonId - The ID of the button to which event listeners are attached.
+ * @param {function} onTouchStart - Function to call when the button is touched (sets the key to true).
+ * @param {function} onTouchEnd - Function to call when the touch ends (sets the key to false).
+ */
+function addTouchEventListeners(buttonId, onTouchStart, onTouchEnd) {
+  let button = document.getElementById(buttonId);
 
-  document
-    .getElementById("rightMobileButton")
-    .addEventListener("touchend", (e) => {
-      if (event.cancelable) event.preventDefault();
-      keyboard.RIGHT = false;
-    });
+  button.addEventListener("touchstart", (e) => {
+    if (e.cancelable) e.preventDefault();
+    onTouchStart(); // Call the function to set the keyboard key to true
+  });
 
-  document
-    .getElementById("throwMobileButton")
-    .addEventListener("touchstart", (e) => {
-      if (event.cancelable) event.preventDefault();
-      keyboard.D = true;
-    });
-
-  document
-    .getElementById("throwMobileButton")
-    .addEventListener("touchend", (e) => {
-      if (event.cancelable) event.preventDefault();
-      keyboard.D = false;
-    });
+  button.addEventListener("touchend", (e) => {
+    if (e.cancelable) e.preventDefault();
+    onTouchEnd(); // Call the function to set the keyboard key to false
+  });
 }
 
 /**
