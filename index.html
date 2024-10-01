@@ -43,9 +43,15 @@
     </div>
 
     <div id="canvasMask">
-      <div class="gameButtonContainer">
+      <div class="gameButtonContainer d-flex">
         <button id="startGameButton" class="gameButtons br-16" onclick="init()">
           Start Game!
+        </button>
+        <button
+          id="ImpressumButton"
+          class="gameButtons br-16"
+          onclick="toggleElementAction('#impressumContainer', 'show'), toggleElementAction('.gameButtonContainer', 'hide')">
+          Impressum
         </button>
         <button
           id="controlsGameButton"
@@ -150,6 +156,74 @@
           onclick="restartGame()">
           Restart Game!
         </button>
+        <button
+          id="goToStartGameButton"
+          class="gameButtons br-16"
+          onclick="reloadPage()">
+          Back to Home
+        </button>
+      </div>
+
+      <div id="impressumContainer" class="d-none br-16">
+        <img
+          class="closeControlInstructionsButton"
+          onclick="toggleElementAction('#impressumContainer', 'hide'), toggleElementAction('.gameButtonContainer', 'show')"
+          src="img/12_game_ui/close.png"
+          alt=""
+          width="32px"
+          height="32px" />
+        <div id="impressumContent">
+          <h2>Impressum</h2>
+          <p>Informationen über den Diensteanbieter.</p>
+          <p>Bastian Thoma</p>
+          <p>Volkwardingen 24a, <br />29646 Bispingen, <br />Deutschland</p>
+          <p>
+            <strong>E-Mail:</strong>
+            <a href="mailto:bestossi1993@googlemail.com"
+              >bestossi1993@googlemail.com</a
+            >
+          </p>
+          <h3>EU-Streitschlichtung</h3>
+          <p>
+            Gemäß Verordnung über Online-Streitbeilegung in
+            Verbraucherangelegenheiten (ODR-Verordnung) möchten wir Sie über die
+            Online-Streitbeilegungsplattform (OS-Plattform) informieren.<br />
+            Verbraucher haben die Möglichkeit, Beschwerden an die Online
+            Streitbeilegungsplattform der Europäischen Kommission unter
+            <a
+              href="https://ec.europa.eu/consumers/odr/main/index.cfm?event=main.home2.show&amp;lng=DE"
+              target="_blank"
+              rel="follow noopener"
+              >https://ec.europa.eu/consumers/odr/main/index.cfm?event=main.home2.show&amp;lng=DE</a
+            >
+            zu richten. Die dafür notwendigen Kontaktdaten finden Sie oberhalb
+            in unserem Impressum.
+          </p>
+          <p>
+            Wir möchten Sie jedoch darauf hinweisen, dass wir nicht bereit oder
+            verpflichtet sind, an Streitbeilegungsverfahren vor einer
+            Verbraucherschlichtungsstelle teilzunehmen.
+          </p>
+          <h3>Bildernachweis</h3>
+          <p>
+            Die Bilder, Fotos und Grafiken auf dieser Webseite sind
+            urheberrechtlich geschützt.
+          </p>
+          <p>
+            <strong>Die Bilderrechte liegen bei:</strong>
+            <br />Developer Akademie GmbH
+          </p>
+          <p>Alle Texte sind urheberrechtlich geschützt.</p>
+          <p>
+            Quelle: Erstellt mit dem
+            <a
+              href="https://www.adsimple.de/impressum-generator/"
+              title="Impressum Generator Deutschland von AdSimple"
+              >Impressum Generator</a
+            >
+            von AdSimple
+          </p>
+        </div>
       </div>
 
       <canvas id="canvas" class="br-16" width="720" height="480"></canvas>

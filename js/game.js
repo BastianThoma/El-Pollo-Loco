@@ -332,3 +332,7 @@ function handleTurnDeviceWarning() {
     }
   }, 100);
 }
+
+function reloadPage() {
+  location.reload();
+}

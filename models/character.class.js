@@ -81,6 +81,7 @@ class Character extends MovableObject {
     landing_sound: new Audio("audio/landing on gravel(Jump).mp3"),
     hurting_sound: new Audio("audio/oww sound.mp3"),
     dying_sound: new Audio("audio/huge ow sound.mp3"),
+    snoring_sound: new Audio("audio/snoring sound.mp3"),
   };
 
   currentImage = 0;
@@ -112,11 +113,12 @@ class Character extends MovableObject {
   }
 
   handleMovement() {
+    if (this.isDead()) return;
+    this.audio["walking_sound"].pause();
     let { RIGHT, LEFT, SPACE } = this.world.keyboard;
     let canMoveRight = RIGHT && this.x < this.world.level.level_end_x;
     let canMoveLeft = LEFT && this.x > 0;
 
-    this.audio["walking_sound"].pause();
     if (canMoveRight || canMoveLeft) {
       this[canMoveRight ? "moveRight" : "moveLeft"]();
       this.otherDirection = !canMoveRight;
@@ -143,8 +145,10 @@ class Character extends MovableObject {
       this.playAnimationOnce(this.IMAGES_IDLE);
     } else if (this.world.keyboard.longIdle) {
       this.playAnimation(this.IMAGES_LONG_IDLE);
+      this.playAudio("snoring_sound", 0.2);
     } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
       this.playAnimation(this.IMAGES_WALKING);
+      this.audio["snoring_sound"].pause();
     }
   }
 
@@ -154,8 +158,6 @@ class Character extends MovableObject {
       this.dyingSoundPlayed = true;
     }
     this.playAnimationOnce(this.IMAGES_DEAD);
-    this.fallDown();
-    clearInterval(interval2);
   }
 
   updateCamera() {

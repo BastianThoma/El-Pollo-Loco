@@ -59,15 +59,6 @@ class MovableObject extends DrawableObject {
     return this.energy == 0;
   }
 
-  fallDown() {
-    setTimeout(() => {
-      setInterval(() => {
-        this.y -= this.speedY;
-        this.speedY -= this.acceletation;
-      }, 1000 / 25);
-    }, 1000);
-  }
-
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];
