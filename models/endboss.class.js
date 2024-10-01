@@ -149,7 +149,6 @@ class Endboss extends MovableObject {
       this.checkIfCharacterIsAtBoss();
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
-        this.fallDown();
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.hadFirstContact) {
