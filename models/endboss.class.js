@@ -124,7 +124,7 @@ class Endboss extends MovableObject {
    * Loads images for various animations and sets the initial position.
    */
   constructor() {
-    super().loadImage("/img/4_enemie_boss_chicken/1_walk/G1.png");
+    super().loadImage("./img/4_enemie_boss_chicken/1_walk/G1.png");
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_ALERT);
