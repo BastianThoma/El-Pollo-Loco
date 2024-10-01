@@ -1,34 +1,94 @@
+/**
+ * Represents the game world, managing the character, enemies, collectibles,
+ * and the game state, including win and lose conditions.
+ */
 class World {
+  /** @type {Character} The main character in the game */
   character = new Character();
+
+  /** @type {HealthBar} The health bar for the character */
   healthBar = new HealthBar();
+
+  /** @type {CoinBar} The coin bar for tracking collected coins */
   coinBar = new CoinBar();
+
+  /** @type {BottleBar} The bottle bar for tracking collected bottles */
   bottleBar = new BottleBar();
+
+  /** @type {EndbossBar} The health bar for the end boss */
   endbossBar = new EndbossBar();
+
+  /** @type {Endscreen} The end screen displayed when the player wins */
   winEndscreen = new Endscreen("img/9_intro_outro_screens/win/won_2.png", 0, 0);
-  loseEndscreen = new Endscreen("img/9_intro_outro_screens/game_over/oh no you lost!.png", 0, 0);
+
+  /** @type {Endscreen} The end screen displayed when the player loses */
+  loseEndscreen = new Endscreen(
+    "img/9_intro_outro_screens/game_over/oh no you lost!.png",
+    0,
+    0
+  );
+
+  /** @type {Object} The current level of the game */
   level = level1;
+
+  /** @type {HTMLCanvasElement} The canvas element used for rendering */
   canvas;
+
+  /** @type {CanvasRenderingContext2D} The 2D rendering context for the canvas */
   ctx;
+
+  /** @type {Object} The keyboard state for player controls */
   keyboard;
+
+  /** @type {number} The x-coordinate of the camera */
   camera_x = 0;
+
+  /** @type {number} The number of collected bottles */
   collectedBottles = 0;
+
+  /** @type {number} The total number of bottles in the level */
   totalBottles = level1.bottles.length;
+
+  /** @type {number} The number of collected coins */
   collectedCoins = 0;
+
+  /** @type {number} The total number of coins in the level */
   totalCoins = level1.coins.length;
+
+  /** @type {boolean} Whether the loop audio should be played */
   loopAudio = true;
+
+  /** @type {boolean} Whether the audio is muted */
   muted = false;
+
+  /** @type {boolean} Whether the player is at the boss fight */
   isAtBoss = false;
+
+  /** @type {boolean} Whether the player has won */
   win = false;
+
+  /** @type {boolean} Whether the player has lost */
   lose = false;
+
+  /** @type {Array} An array to store collected coins */
   collectedCoins = [];
+
+  /** @type {Array} An array to store throwable objects */
   throwableObjects = [];
+
+  /** @type {Array} An array to store collected bottles */
   collectedBottles = [];
 
+  /** @type {Object} Audio elements for sound effects */
   audio = {
     coinCollect_sound: new Audio("audio/collect coin.mp3"),
     bottleCollect_sound: new Audio("audio/collect bottle.mp3"),
   };
 
+  /**
+   * Creates an instance of the World class.
+   * @param {HTMLCanvasElement} canvas - The canvas element for rendering the game.
+   */
   constructor(canvas) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -41,32 +101,48 @@ class World {
     }
   }
 
+  /**
+   * Sets the world property of the character.
+   */
   setWorld() {
     this.character.world = this;
   }
 
+  /**
+   * Starts the game loop.
+   */
   run() {
     let interval = setInterval(() => {
       this.killByJump();
     }, 1000 / 60);
+
     let interval2 = setInterval(() => {
       this.checkCollisions();
       this.returnCharacterPosition();
     }, 300);
+
     let interval3 = setInterval(() => {
       this.checkThrowObjects();
       this.checkCollectables();
       this.checkWinOrLose();
     }, 100);
+
     intervalIds.push(interval, interval2, interval3);
   }
 
+  /**
+   * Adds audio effects to the sound effects array.
+   * @param {Object} arr - An object containing audio elements.
+   */
   AudioToArray(arr) {
     Object.values(arr).forEach((sound) => {
       soundEffects.push(sound);
     });
   }
 
+  /**
+   * Displays the end screen based on the game's outcome.
+   */
   addEndscreen() {
     if (this.lose) {
       this.loseScenario();
@@ -75,30 +151,41 @@ class World {
     }
   }
 
+  /**
+   * Handles the scenario when the player loses the game.
+   */
   loseScenario() {
     setTimeout(() => {
       this.stopGame();
       toggleElementAction("#restartGameScreen", "show");
       handleTurnDeviceWarning();
     }, 3000);
+
     this.addToMap(this.loseEndscreen);
     this.playObjectAudio(this.loseEndscreen, "lose_sound", 0.4);
     this.pauseAudio();
     toggleElementAction("#mobileControlButtonContainer", "hide");
   }
 
+  /**
+   * Handles the scenario when the player wins the game.
+   */
   winScenario() {
     setTimeout(() => {
       this.stopGame();
       toggleElementAction("#restartGameScreen", "show");
       handleTurnDeviceWarning();
     }, 3000);
+
     this.addToMap(this.winEndscreen);
     this.playObjectAudio(this.winEndscreen, "win_sound", 0.4);
     this.pauseAudio();
     toggleElementAction("#mobileControlButtonContainer", "hide");
   }
 
+  /**
+   * Checks if the player has won or lost the game.
+   */
   checkWinOrLose() {
     if (this.character.energy == 0) {
       this.lose = true;
@@ -107,6 +194,9 @@ class World {
     }
   }
 
+  /**
+   * Stops the game and clears all intervals.
+   */
   stopGame() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
     this.lose = false;
@@ -114,11 +204,17 @@ class World {
     stopGame = true;
   }
 
+  /**
+   * Checks for collectible items in the game.
+   */
   checkCollectables() {
     this.checkCoinCollect();
     this.checkBottleCollect();
   }
 
+  /**
+   * Checks for collected coins and updates the coin bar.
+   */
   checkCoinCollect() {
     this.level.coins.forEach((coin, i) => {
       if (this.character.isColliding(coin)) {
@@ -130,6 +226,9 @@ class World {
     });
   }
 
+  /**
+   * Checks for collected bottles and updates the bottle bar.
+   */
   checkBottleCollect() {
     this.level.bottles.forEach((bottle, i) => {
       if (this.character.isColliding(bottle)) {
@@ -144,6 +243,9 @@ class World {
     });
   }
 
+  /**
+   * Checks if the player is throwing objects.
+   */
   checkThrowObjects() {
     if (this.keyboard.D && this.collectedBottles > 0) {
       let direction = this.character.otherDirection ? "left" : "right";
@@ -158,6 +260,9 @@ class World {
     }
   }
 
+  /**
+   * Checks for collisions between the character and enemies or the boss.
+   */
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy) && !enemy.isJumpedOn) {
@@ -174,18 +279,27 @@ class World {
     });
   }
 
+  /**
+   * Returns the character's position to determine if they are at the boss.
+   */
   returnCharacterPosition() {
     if (this.character.x > 2450) {
       this.isAtBoss = true;
     }
   }
 
+  /**
+   * Reveals the boss health bar if the player is at the boss.
+   */
   revealBossHealth() {
     if (this.isAtBoss == true) {
       this.addToMap(this.endbossBar);
     }
   }
 
+  /**
+   * Handles the killing of enemies by jumping on them.
+   */
   killByJump() {
     this.level.enemies.forEach((enemy) => {
       if (
@@ -203,6 +317,9 @@ class World {
     });
   }
 
+  /**
+   * Executes a jump after killing an enemy.
+   */
   jumpAfterKill() {
     if (this.character.y > 70) {
       this.character.speedY = 25;
@@ -210,19 +327,20 @@ class World {
     }
   }
 
+  /**
+   * Draws the game elements on the canvas.
+   */
   draw() {
     if (stopGame) {
       return;
     }
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
     this.ctx.translate(this.camera_x, 0);
 
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.bottles);
-
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
@@ -248,27 +366,38 @@ class World {
     });
   }
 
+  /**
+   * Adds multiple objects to the map.
+   * @param {Array} objects - An array of objects to be added.
+   */
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
   }
 
+  /**
+   * Adds a single object to the map.
+   * @param {Object} mo - The object to be added.
+   */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
-
     mo.draw(this.ctx);
-
-    // Code in Zeile 265 Aktivieren um Hitboxen anzeigen zu lassen.
-    // mo.drawFrame(this.ctx);    
-
+    // Uncomment to display hitboxes.
+    // mo.drawFrame(this.ctx);
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
   }
 
+  /**
+   * Plays the audio for a specific object.
+   * @param {Object} obj - The object associated with the audio.
+   * @param {string} audio - The name of the audio element.
+   * @param {number} vol - The volume of the audio.
+   */
   playObjectAudio(obj, audio, vol) {
     if (this.loopAudio) {
       obj.audio[audio].volume = vol;
@@ -278,12 +407,19 @@ class World {
     }
   }
 
+  /**
+   * Pauses the audio for a specified duration.
+   */
   pauseAudio() {
     setTimeout(() => {
       this.loopAudio = false;
     }, 3000);
   }
 
+  /**
+   * Flips the image of an object horizontally.
+   * @param {Object} mo - The object whose image will be flipped.
+   */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);
@@ -291,6 +427,10 @@ class World {
     mo.x = mo.x * -1;
   }
 
+  /**
+   * Reverts the flipping of the image of an object.
+   * @param {Object} mo - The object whose image flip will be reverted.
+   */
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();

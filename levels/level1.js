@@ -1,5 +1,10 @@
 let level1;
 
+/**
+ * Initializes the first level of the game by creating various game objects.
+ * @function
+ * @returns {void}
+ */
 function initLevel() {
   level1 = new Level(
     [
