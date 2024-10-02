@@ -81,6 +81,9 @@ class Character extends MovableObject {
     "./img/2_character_pepe/1_idle/idle/I-10.png",
   ];
 
+  /** @type {string[]} An array of image paths for the character's default animation. */
+  IMAGES_DEFAULT = ["./img/2_character_pepe/1_idle/idle/I-1.png"];
+
   /** @type {string[]} An array of image paths for the character's long idle animation. */
   IMAGES_LONG_IDLE = [
     "./img/2_character_pepe/1_idle/long_idle/I-11.png",
@@ -117,6 +120,7 @@ class Character extends MovableObject {
    */
   constructor() {
     super().loadImage("./img/2_character_pepe/1_idle/idle/I-1.png");
+    this.loadImages(this.IMAGES_DEFAULT);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_DEAD);
@@ -188,7 +192,7 @@ class Character extends MovableObject {
     } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
       this.playAnimation(this.IMAGES_WALKING);
       this.audio["snoring_sound"].pause();
-    }
+    } else this.playAnimation(this.IMAGES_DEFAULT);
   }
 
   /**
